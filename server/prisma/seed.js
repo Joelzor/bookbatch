@@ -54,12 +54,13 @@ async function seed() {
 
   const tag1 = await prisma.tag.create({
     data: {
-      title: "Thomas Mann intro",
+      title: "author intro",
     },
   });
 
   const batch = await prisma.batch.create({
     data: {
+      title: "Thomas Mann introduction",
       userId: joel.id,
       books: {
         connect: [{ id: book1.id, id: book2.id, id: book3.id }],

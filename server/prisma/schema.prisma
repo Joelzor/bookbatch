@@ -38,6 +38,7 @@ model Profile {
 
 model Batch {
   id        Int      @id @default(autoincrement())
+  title     String   @default("My batch")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
@@ -51,7 +52,7 @@ model Post {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  title     String
+  title     String?
   body      String
   User      User?     @relation(fields: [userId], references: [id])
   userId    Int?
