@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <>
-      <div>Header</div>
+      <Header />
       <Routes>
         <Route path="/" element={<h1>Home page</h1>} />
         <Route path="/login" element={<h1>Log in</h1>} />
