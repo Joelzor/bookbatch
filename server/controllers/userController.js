@@ -26,4 +26,32 @@ const getUserById = async (req, res, next) => {
   res.status(200).json(user);
 };
 
-module.exports = { getAllUsers, getUserById };
+const createUser = async (req, res, next) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return next(
+      createCustomError("You must provide username, email and password", 400)
+    );
+  }
+
+  const foundUser = await prisma.user.findFirst({ where: { email } });
+
+  if (foundUser) {
+    return next(
+      createCustomError("A user with this email already exists", 400)
+    );
+  }
+
+  const newUser = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password,
+    },
+  });
+
+  res.status(201).json(newUser);
+};
+
+module.exports = { getAllUsers, getUserById, createUser };
