@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Home from "./components/Home";
 
 const App = () => {
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<h1>Home page</h1>} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<h1>Log in</h1>} />
         <Route path="/register" element={<h1>Register</h1>} />
         <Route path="/newbatch" element={<h1>Create new batch</h1>} />
