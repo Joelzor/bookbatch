@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const { createCustomError } = require("../errors/custom-error");
 
 const saltRounds = 10;
-const secret = process.env.JWT_SECRET;
 
 const getAllUsers = async (req, res) => {
   const users = await prisma.user.findMany();
