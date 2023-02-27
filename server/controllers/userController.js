@@ -1,6 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { createCustomError } = require("../errors/custom-error");
+
+const saltRounds = 10;
+const secret = process.env.JWT_SECRET;
 
 const getAllUsers = async (req, res) => {
   const users = await prisma.user.findMany();
@@ -43,15 +48,21 @@ const createUser = async (req, res, next) => {
     );
   }
 
-  const newUser = await prisma.user.create({
-    data: {
-      username,
-      email,
-      password,
-    },
-  });
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    bcrypt.hash(password, salt, async (err, hash) => {
+      const newUser = await prisma.user.create({
+        data: {
+          username,
+          email,
+          password: hash,
+        },
+      });
 
-  res.status(201).json(newUser);
+      delete newUser.password;
+
+      res.status(201).json({ status: "success", newUser });
+    });
+  });
 };
 
 module.exports = { getAllUsers, getUserById, createUser };
