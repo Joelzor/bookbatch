@@ -21,7 +21,7 @@ const Register = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h4 className="text-center mt-4">
         Sign up now to create your own batches!
       </h4>
