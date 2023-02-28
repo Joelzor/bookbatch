@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Form, Row, Stack, Container } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
+import Notification from "./Notification";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { register } = useGlobalContext();
@@ -9,6 +11,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,12 +23,17 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    register(userData);
+    const result = register(userData);
+    setSuccess(result);
     setUserData({
       username: "",
       email: "",
       password: "",
     });
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
   };
 
   return (
@@ -74,6 +83,9 @@ const Register = () => {
           <Button type="submit">Sign me up</Button>
         </Stack>
       </Form>
+      {success && (
+        <Notification message={"You signed up successfully!"} type="success" />
+      )}
     </Container>
   );
 };

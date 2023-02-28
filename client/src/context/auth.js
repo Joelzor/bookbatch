@@ -1,19 +1,24 @@
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState("hello");
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  // const navigate = useNavigate();
 
   // taking in data from the user form
   const register = async (userData) => {
-    const res = await axios("http://localhost:4000/users", {
+    const res = await axios("http://localhost:4000/api/v1/users", {
       method: "POST",
       data: userData,
     });
 
-    console.log(res);
+    if (res?.data?.newUser) {
+      setLoggedInUser(res.data.newUser);
+      return true;
+    }
   };
 
   const value = {

@@ -55,6 +55,9 @@ const createUser = async (req, res, next) => {
           email,
           password: hash,
         },
+        include: {
+          profile: true,
+        },
       });
 
       delete newUser.password;
