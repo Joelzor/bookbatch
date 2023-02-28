@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button, Form, Row, Stack, Container } from "react-bootstrap";
+import { useGlobalContext } from "../context/auth";
 
 const Register = () => {
+  const { register } = useGlobalContext();
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -17,7 +19,12 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(userData);
+    register(userData);
+    setUserData({
+      username: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
