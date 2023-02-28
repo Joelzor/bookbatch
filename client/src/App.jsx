@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import Register from "./components/Register";
+import UserForm from "./components/UserForm";
 
 const App = () => {
   return (
@@ -9,8 +9,8 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<h1>Log in</h1>} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<UserForm login={true} />} />
+        <Route path="/register" element={<UserForm />} />
         <Route path="/newbatch" element={<h1>Create new batch</h1>} />
         <Route path="/batches" element={<h1>Browse batches</h1>} />
         <Route path="/batches/:id" element={<h1>View batch</h1>} />

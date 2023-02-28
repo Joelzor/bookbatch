@@ -4,7 +4,7 @@ import { useGlobalContext } from "../context/auth";
 import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const UserForm = ({ login = false }) => {
   const { register } = useGlobalContext();
   const [userData, setUserData] = useState({
     username: "",
@@ -39,21 +39,24 @@ const Register = () => {
   return (
     <Container className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h4 className="text-center mt-4">
-        Sign up now to create your own batches!
+        {!login && "Sign up now to create your own batches!"}
+        {login && "Log in"}
       </h4>
       <Form className="w-50 mx-auto mt-5" onSubmit={handleSubmit}>
         <Stack gap={4}>
-          <Row>
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                required
-                name="username"
-                value={userData.username}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Row>
+          {!login && (
+            <Row>
+              <Form.Group controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  required
+                  name="username"
+                  value={userData.username}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Row>
+          )}
           <Row>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
@@ -80,7 +83,10 @@ const Register = () => {
               />
             </Form.Group>
           </Row>
-          <Button type="submit">Sign me up</Button>
+          <Button type="submit">
+            {!login && "Sign me up"}
+            {login && "Log me in"}
+          </Button>
         </Stack>
       </Form>
       {success && (
@@ -90,4 +96,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default UserForm;
