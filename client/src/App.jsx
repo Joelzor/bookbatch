@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import UserForm from "./components/UserForm";
+// import { ProtectedRoute, useGlobalContext } from "./context/auth";
 
 const App = () => {
   return (

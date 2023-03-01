@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
@@ -12,7 +13,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access-token");
-
     if (accessToken && !token) {
       setToken(accessToken);
       const { id } = jwt_decode(accessToken);
@@ -85,4 +85,14 @@ const useGlobalContext = () => {
   return useContext(AuthContext);
 };
 
-export { AuthProvider, useGlobalContext };
+const ProtectedRoute = ({ children }) => {
+  const { token } = useGlobalContext();
+
+  if (!token) {
+    return <Navigate to={"/login"} replace />;
+  }
+
+  return <div>{children}</div>;
+};
+
+export { AuthProvider, useGlobalContext, ProtectedRoute };
