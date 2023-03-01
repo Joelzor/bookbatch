@@ -13,7 +13,10 @@ const userLogin = async (req, res, next) => {
     return next(createCustomError("Please provide an email and password", 400));
   }
 
-  const foundUser = await prisma.user.findFirst({ where: { email } });
+  const foundUser = await prisma.user.findFirst({
+    where: { email },
+    include: { profile: true },
+  });
 
   if (!foundUser) {
     return next(
@@ -29,7 +32,8 @@ const userLogin = async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: foundUser.id }, secret);
-    res.status(200).json({ status: "success", token });
+    delete foundUser.password;
+    res.status(200).json({ status: "success", token, user: foundUser });
   });
 };
 

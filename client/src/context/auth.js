@@ -26,7 +26,12 @@ const AuthProvider = ({ children }) => {
       data: userData,
     });
 
-    console.log(data);
+    if (data.error) {
+      console.log(data.error);
+    }
+
+    localStorage.setItem("access-token", data.token);
+    setLoggedInUser(data.user);
   };
 
   const value = {

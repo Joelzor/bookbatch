@@ -50,12 +50,16 @@ const UserForm = ({ login = false }) => {
     e.preventDefault();
 
     userLogin(loginData);
+    setSuccess(true);
 
     setLoginData({
-      username: "",
       email: "",
       password: "",
     });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -114,9 +118,7 @@ const UserForm = ({ login = false }) => {
           </Button>
         </Stack>
       </Form>
-      {success && (
-        <Notification message={"You signed up successfully!"} type="success" />
-      )}
+      {success && <Notification message={"Success!"} type="success" />}
     </Container>
   );
 };
