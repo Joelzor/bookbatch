@@ -1,16 +1,30 @@
-import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  // const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access-token");
+
+    if (accessToken && !token) {
+      setToken(accessToken);
+      const { id } = jwt_decode(accessToken);
+      axios(`${baseUrl}/users/${id}`).then((data) => {
+        setLoggedInUser(data.data);
+      });
+    }
+  }, [token, baseUrl]);
 
   // taking in data from the user form
   const register = async (userData) => {
-    const res = await axios("http://localhost:4000/api/v1/users", {
+    const res = await axios(`${baseUrl}/users`, {
       method: "POST",
       data: userData,
     });
@@ -21,17 +35,14 @@ const AuthProvider = ({ children }) => {
   };
 
   const userLogin = async (userData) => {
-    const { data } = await axios("http://localhost:4000/api/v1/login", {
+    const { data } = await axios(`${baseUrl}/login`, {
       method: "POST",
       data: userData,
     });
 
-    if (data.error) {
-      console.log(data.error);
-    }
-
     localStorage.setItem("access-token", data.token);
     setLoggedInUser(data.user);
+    setToken(data.token);
   };
 
   const value = {
@@ -49,7 +60,3 @@ const useGlobalContext = () => {
 };
 
 export { AuthProvider, useGlobalContext };
-
-// get the data from the form into register / log in functions
-// send the request and set local storage
-// if local storage already has token, fetch user data and add to logged in state
