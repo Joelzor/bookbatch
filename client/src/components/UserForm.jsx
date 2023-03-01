@@ -5,27 +5,37 @@ import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
 
 const UserForm = ({ login = false }) => {
-  const { register } = useGlobalContext();
-  const [userData, setUserData] = useState({
+  const { register, userLogin } = useGlobalContext();
+  const [registerData, setRegisterData] = useState({
     username: "",
+    email: "",
+    password: "",
+  });
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChangeRegister = (e) => {
     const { name, value } = e.target;
 
-    setUserData({ ...userData, [name]: value });
+    setRegisterData({ ...registerData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleChangeLogin = (e) => {
+    const { name, value } = e.target;
+
+    setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleSubmitRegister = async (e) => {
     e.preventDefault();
 
-    const result = register(userData);
+    const result = await register(registerData);
     setSuccess(result);
-    setUserData({
+    setRegisterData({
       username: "",
       email: "",
       password: "",
@@ -36,13 +46,28 @@ const UserForm = ({ login = false }) => {
     }, 3000);
   };
 
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+
+    userLogin(loginData);
+
+    setLoginData({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
+
   return (
     <Container className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h4 className="text-center mt-4">
         {!login && "Sign up now to create your own batches!"}
         {login && "Log in"}
       </h4>
-      <Form className="w-50 mx-auto mt-5" onSubmit={handleSubmit}>
+      <Form
+        className="w-50 mx-auto mt-5"
+        onSubmit={login ? handleSubmitLogin : handleSubmitRegister}
+      >
         <Stack gap={4}>
           {!login && (
             <Row>
@@ -51,8 +76,8 @@ const UserForm = ({ login = false }) => {
                 <Form.Control
                   required
                   name="username"
-                  value={userData.username}
-                  onChange={handleChange}
+                  value={registerData.username}
+                  onChange={handleChangeRegister}
                 />
               </Form.Group>
             </Row>
@@ -64,8 +89,8 @@ const UserForm = ({ login = false }) => {
                 required
                 name="email"
                 type="email"
-                value={userData.email}
-                onChange={handleChange}
+                value={login ? loginData.email : registerData.email}
+                onChange={login ? handleChangeLogin : handleChangeRegister}
               />
             </Form.Group>
           </Row>
@@ -76,8 +101,8 @@ const UserForm = ({ login = false }) => {
                 required
                 name="password"
                 type="password"
-                value={userData.password}
-                onChange={handleChange}
+                value={login ? loginData.password : registerData.password}
+                onChange={login ? handleChangeLogin : handleChangeRegister}
                 minLength="8"
                 maxLength="25"
               />

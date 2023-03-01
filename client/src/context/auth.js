@@ -16,15 +16,24 @@ const AuthProvider = ({ children }) => {
     });
 
     if (res?.data?.newUser) {
-      setLoggedInUser(res.data.newUser);
       return true;
     }
+  };
+
+  const userLogin = async (userData) => {
+    const { data } = await axios("http://localhost:4000/api/v1/login", {
+      method: "POST",
+      data: userData,
+    });
+
+    console.log(data);
   };
 
   const value = {
     loggedInUser,
     setLoggedInUser,
     register,
+    userLogin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
