@@ -1,0 +1,18 @@
+.batch-container {
+  width: 80%;
+  height: 250px;
+  padding: 10px;
+}
+
+.batch-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+
+.add-batch-btn {
+  font-size: 60px;
+  cursor: pointer;
+  color: green;
+}
