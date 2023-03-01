@@ -24,14 +24,21 @@ const AuthProvider = ({ children }) => {
 
   // taking in data from the user form
   const register = async (userData) => {
-    const res = await axios(`${baseUrl}/users`, {
+    const res = await fetch(`${baseUrl}/users`, {
       method: "POST",
-      data: userData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
     });
 
-    if (res?.data?.newUser) {
-      return true;
+    const data = await res.json();
+
+    if (!res.ok) {
+      return { status: "fail", message: data.msg };
     }
+
+    return { status: "success", message: "You have registered successfully!" };
   };
 
   const userLogin = async (userData) => {

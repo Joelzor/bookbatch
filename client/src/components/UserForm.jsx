@@ -15,7 +15,8 @@ const UserForm = ({ login = false }) => {
     email: "",
     password: "",
   });
-  const [success, setSuccess] = useState(false);
+  const [successResponse, setSuccessResponse] = useState(null);
+  const [errorResponse, setErrorResponse] = useState(null);
   const navigate = useNavigate();
 
   const handleChangeRegister = (e) => {
@@ -34,32 +35,49 @@ const UserForm = ({ login = false }) => {
     e.preventDefault();
 
     const result = await register(registerData);
-    setSuccess(result);
+
+    if (result.status === "fail") {
+      setErrorResponse(result.message);
+    }
+
+    if (result.status === "success") {
+      setSuccessResponse(result.message);
+    }
+
     setRegisterData({
       username: "",
       email: "",
       password: "",
     });
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 3000);
+    if (result.status === "success") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
   };
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
     userLogin(loginData);
-    setSuccess(true);
+    // setSuccess(true);
 
     setLoginData({
       email: "",
       password: "",
     });
 
+    // setTimeout(() => {
+    //   navigate("/");
+    // }, 3000);
+  };
+
+  const removeAlert = () => {
     setTimeout(() => {
-      navigate("/");
-    }, 3000);
+      setSuccessResponse(null);
+      setErrorResponse(null);
+    }, 2000);
   };
 
   return (
@@ -118,7 +136,18 @@ const UserForm = ({ login = false }) => {
           </Button>
         </Stack>
       </Form>
-      {success && <Notification message={"Success!"} type="success" />}
+      {successResponse && (
+        <>
+          <Notification message={successResponse} type="success" />
+          {removeAlert()}
+        </>
+      )}
+      {errorResponse && (
+        <>
+          <Notification message={errorResponse} type="secondary" />
+          {removeAlert()}
+        </>
+      )}
     </Container>
   );
 };
