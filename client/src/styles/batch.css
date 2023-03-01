@@ -16,3 +16,13 @@
   cursor: pointer;
   color: green;
 }
+
+.search-form-modal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchbar {
+  width: 380px;
+}
