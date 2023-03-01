@@ -16,9 +16,11 @@ const AuthProvider = ({ children }) => {
     if (accessToken && !token) {
       setToken(accessToken);
       const { id } = jwt_decode(accessToken);
-      axios(`${baseUrl}/users/${id}`).then((data) => {
-        setLoggedInUser(data.data);
-      });
+      axios(`${baseUrl}/users/${id}`)
+        .then((data) => {
+          setLoggedInUser(data.data);
+        })
+        .catch((err) => console.error(err));
     }
   }, [token, baseUrl]);
 
@@ -42,19 +44,30 @@ const AuthProvider = ({ children }) => {
   };
 
   const userLogin = async (userData) => {
-    const { data } = await axios(`${baseUrl}/login`, {
+    const res = await fetch(`${baseUrl}/login`, {
       method: "POST",
-      data: userData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
     });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      return { status: "fail", message: data.msg };
+    }
 
     localStorage.setItem("access-token", data.token);
     setLoggedInUser(data.user);
     setToken(data.token);
+    return { status: "success", message: "You have logged in successfully!" };
   };
 
   const logout = () => {
     localStorage.removeItem("access-token");
     setToken(null);
+    setLoggedInUser(null);
   };
 
   const value = {

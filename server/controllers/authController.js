@@ -20,14 +20,14 @@ const userLogin = async (req, res, next) => {
 
   if (!foundUser) {
     return next(
-      createCustomError("Either the username or password is incorrect", 400)
+      createCustomError("Either the email or password is incorrect", 400)
     );
   }
 
   bcrypt.compare(password, foundUser.password, (err, match) => {
     if (!match) {
       return next(
-        createCustomError("Either the username or password is incorrect", 401)
+        createCustomError("Either the email or password is incorrect", 401)
       );
     }
 

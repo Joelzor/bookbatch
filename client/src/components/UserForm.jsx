@@ -60,17 +60,25 @@ const UserForm = ({ login = false }) => {
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
-    userLogin(loginData);
-    // setSuccess(true);
+    const result = await userLogin(loginData);
+    if (result.status === "fail") {
+      setErrorResponse(result.message);
+    }
+
+    if (result.status === "success") {
+      setSuccessResponse(result.message);
+    }
 
     setLoginData({
       email: "",
       password: "",
     });
 
-    // setTimeout(() => {
-    //   navigate("/");
-    // }, 3000);
+    if (result.status === "success") {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
   };
 
   const removeAlert = () => {
