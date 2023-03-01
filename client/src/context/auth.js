@@ -45,11 +45,17 @@ const AuthProvider = ({ children }) => {
     setToken(data.token);
   };
 
+  const logout = () => {
+    localStorage.removeItem("access-token");
+    setToken(null);
+  };
+
   const value = {
     loggedInUser,
     setLoggedInUser,
     register,
     userLogin,
+    logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
