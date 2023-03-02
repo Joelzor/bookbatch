@@ -84,7 +84,7 @@ model Tag {
 model Book {
   id        Int      @id @default(autoincrement())
   title     String
-  author    String
+  author    String?
   cover     String?
   year      String?
   createdAt DateTime @default(now())
