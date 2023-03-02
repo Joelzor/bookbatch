@@ -1,3 +1,6 @@
+import { Stack, Button } from "react-bootstrap";
+import "../styles/bookResult.css";
+
 const BookResult = ({ bookInfo }) => {
   const {
     title,
@@ -7,14 +10,19 @@ const BookResult = ({ bookInfo }) => {
   } = bookInfo.volumeInfo;
 
   return (
-    <article>
+    <Stack gap={2} direction="horizontal" className="result">
       <img src={cover} alt={`${title} cover`} />
       <div>
-        <p>{title}</p>
-        <p>{authors}</p>
-        <p>{description}</p>
+        <p className="bold">{title}</p>
+        <p>
+          {authors.map((author, index) => {
+            return <span key={index}>{author}</span>;
+          })}
+        </p>
+        <p>{`${description.substring(0, 200)}...`}</p>
       </div>
-    </article>
+      <Button className="add-btn">Add</Button>
+    </Stack>
   );
 };
 

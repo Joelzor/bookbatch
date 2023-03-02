@@ -31,7 +31,7 @@ const CreateBatch = () => {
             Hello {loggedInUser.username}. Create your batch below!
           </h5>
           <Batch handleShow={handleShow} />
-          <Modal show={showBookModal} onHide={handleClose}>
+          <Modal show={showBookModal} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Find book</Modal.Title>
             </Modal.Header>
@@ -52,7 +52,7 @@ const CreateBatch = () => {
                   Search
                 </Button>
               </Form>
-              <Stack gap={2} className="mt-4">
+              <Stack gap={4} className="mt-4">
                 {results.map((book) => {
                   return <BookResult key={book.id} bookInfo={book} />;
                 })}

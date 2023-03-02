@@ -1,0 +1,15 @@
+.result {
+  justify-content: center;
+  align-items: start;
+  border: 0.5px solid #ccc;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.add-btn {
+  align-self: center;
+}
