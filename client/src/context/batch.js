@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 const BatchContext = createContext();
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const BatchProvider = ({ children }) => {
   const [localBooks, setLocalBooks] = useState([]);
@@ -18,10 +19,21 @@ const BatchProvider = ({ children }) => {
   };
 
   const saveBook = async (book) => {
-    // passed in book gets persisted to the database
-    // take out the properties I want
-    // send a POST request to new books endpoint
-    console.log(book);
+    const { title, authors, imageLinks } = book.volumeInfo;
+
+    const payload = {
+      title,
+      author: authors.join(" & "),
+      cover: imageLinks?.smallThumbnail || null,
+    };
+
+    await fetch(`${baseUrl}/books`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
   };
 
   const value = {
