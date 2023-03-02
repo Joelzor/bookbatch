@@ -1,16 +1,27 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context/auth";
+import { useBatchContext } from "../context/batch";
 import "../styles/batch.css";
-import { Container, Modal, Button, Form } from "react-bootstrap";
+import { Container, Modal, Button, Form, Stack } from "react-bootstrap";
 import Batch from "./Batch";
+import BookResult from "./BookResult";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
+  const { searchBooks } = useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [results, setResults] = useState([]);
 
   const handleClose = () => setShowBookModal(false);
   const handleShow = () => setShowBookModal(true);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const searchResults = await searchBooks(searchQuery);
+    setResults(searchResults);
+  };
 
   return (
     <>
@@ -25,7 +36,7 @@ const CreateBatch = () => {
               <Modal.Title>Find book</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form className="search-form-modal">
+              <Form className="search-form-modal" onSubmit={handleSubmit}>
                 <Form.Group controlId="query">
                   <Form.Control
                     required
@@ -37,8 +48,15 @@ const CreateBatch = () => {
                     className="searchbar"
                   />
                 </Form.Group>
-                <Button variant="primary">Search</Button>
+                <Button variant="primary" type="submit">
+                  Search
+                </Button>
               </Form>
+              <Stack gap={2} className="mt-4">
+                {results.map((book) => {
+                  return <BookResult key={book.id} bookInfo={book} />;
+                })}
+              </Stack>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
