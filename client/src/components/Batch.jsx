@@ -12,10 +12,6 @@ const Batch = ({ handleShow }) => {
             <AiFillPlusCircle className="add-batch-btn" onClick={handleShow} />
           </Stack>
         </Col>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
       </Row>
     </Card>
   );

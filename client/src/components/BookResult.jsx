@@ -1,9 +1,17 @@
 import { Stack, Button } from "react-bootstrap";
+import { useBatchContext } from "../context/batch";
 import "../styles/bookResult.css";
 import defaultImage from "../images/notfound.png";
 
-const BookResult = ({ bookInfo }) => {
+const BookResult = ({ bookInfo, handleClose }) => {
+  const { saveBook, localBooks, setLocalBooks } = useBatchContext();
   const { title, authors, description, imageLinks } = bookInfo.volumeInfo;
+
+  const addToBatch = (bookInfo) => {
+    saveBook(bookInfo);
+    setLocalBooks([...localBooks, bookInfo]);
+    handleClose();
+  };
 
   return (
     <Stack gap={2} direction="horizontal" className="result">
@@ -16,7 +24,7 @@ const BookResult = ({ bookInfo }) => {
         <p>
           {authors &&
             authors.map((author, index) => {
-              return <span key={index}>{author}</span>;
+              return <span key={index}>{author} </span>;
             })}
         </p>
         <p>
@@ -25,7 +33,9 @@ const BookResult = ({ bookInfo }) => {
             : "We have no description for this book"}
         </p>
       </div>
-      <Button className="add-btn">Add</Button>
+      <Button className="add-btn" onClick={() => addToBatch(bookInfo)}>
+        Add
+      </Button>
     </Stack>
   );
 };

@@ -54,7 +54,13 @@ const CreateBatch = () => {
               </Form>
               <Stack gap={4} className="mt-4">
                 {results.map((book) => {
-                  return <BookResult key={book.id} bookInfo={book} />;
+                  return (
+                    <BookResult
+                      key={book.id}
+                      bookInfo={book}
+                      handleClose={handleClose}
+                    />
+                  );
                 })}
               </Stack>
             </Modal.Body>
