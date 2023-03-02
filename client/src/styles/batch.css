@@ -1,6 +1,6 @@
 .batch-container {
   width: 80%;
-  height: 250px;
+  /* height: 250px; */
   padding: 10px;
 }
 
@@ -25,4 +25,14 @@
 
 .searchbar {
   width: 380px;
+}
+
+.book-image {
+  height: 167px;
+  width: 128px;
+}
+
+.title-text {
+  font-weight: 600;
+  font-size: 14px;
 }

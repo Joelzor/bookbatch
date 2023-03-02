@@ -53,7 +53,7 @@ const UserForm = ({ login = false }) => {
     if (result.status === "success") {
       setTimeout(() => {
         navigate("/login");
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -77,7 +77,7 @@ const UserForm = ({ login = false }) => {
     if (result.status === "success") {
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     }
   };
 
