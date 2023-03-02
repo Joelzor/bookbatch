@@ -10,6 +10,23 @@ const getAllBooks = async (req, res) => {
 
 const createBook = async (req, res, next) => {
   const { title, author, cover, year } = req.body;
+
+  if (!title) {
+    return next(createCustomError("You must provide a title", 400));
+  }
+
+  // may need the google books ID to make sure only unique books are ever persisted in DB
+
+  const newBook = await prisma.book.create({
+    data: {
+      title,
+      author,
+      cover,
+      year,
+    },
+  });
+
+  res.status(201).json({ message: "success", newBook });
 };
 
 module.exports = { createBook, getAllBooks };
