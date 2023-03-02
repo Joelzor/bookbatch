@@ -14,7 +14,7 @@ const BookResult = ({ bookInfo }) => {
       <div>
         <p className="bold">{title}</p>
         <p>
-          {authors > 0 &&
+          {authors &&
             authors.map((author, index) => {
               return <span key={index}>{author}</span>;
             })}
