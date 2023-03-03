@@ -5,6 +5,7 @@ import "../styles/batch.css";
 import { Container, Modal, Button, Form, Stack } from "react-bootstrap";
 import Batch from "./Batch";
 import BookResult from "./BookResult";
+import CreateTags from "./CreateTags";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
@@ -35,9 +36,12 @@ const CreateBatch = () => {
             <Stack gap={3}>
               <Button variant="success">Publish</Button>
               <Button variant="outline-info">Save for later</Button>
-              <Button variant="outline-danger">Clear all</Button>
+              <Button variant="outline-secondary">Clear all</Button>
             </Stack>
           </Stack>
+          <CreateTags />
+
+          {/* modal section */}
           <Modal show={showBookModal} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Find book</Modal.Title>
