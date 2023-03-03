@@ -36,11 +36,18 @@ const BatchProvider = ({ children }) => {
     });
   };
 
+  const deleteLocalBook = (id) => {
+    setLocalBooks((prevBooks) => {
+      return prevBooks.filter((book) => book.id !== id);
+    });
+  };
+
   const value = {
     searchBooks,
     saveBook,
     localBooks,
     setLocalBooks,
+    deleteLocalBook,
   };
 
   return (
