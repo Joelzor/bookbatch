@@ -6,6 +6,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const BatchProvider = ({ children }) => {
+  const [batches, setBatches] = useState([]);
   const [localBooks, setLocalBooks] = useState([]);
   const [localTags, setLocalTags] = useState([]);
   const [localPost, setLocalPost] = useState("");
@@ -45,6 +46,17 @@ const BatchProvider = ({ children }) => {
     });
   };
 
+  const createBatch = () => {
+    const batch = {
+      title: localTitle,
+      books: localBooks,
+      tags: localTags,
+      post: localPost,
+    };
+
+    console.log(batch);
+  };
+
   const value = {
     searchBooks,
     saveBook,
@@ -56,6 +68,8 @@ const BatchProvider = ({ children }) => {
     setLocalPost,
     localTitle,
     setLocalTitle,
+    createBatch,
+    batches,
   };
 
   return (

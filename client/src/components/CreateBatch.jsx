@@ -10,7 +10,7 @@ import CreatePost from "./CreatePost";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
-  const { searchBooks } = useBatchContext();
+  const { searchBooks, createBatch } = useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -37,7 +37,9 @@ const CreateBatch = () => {
           <Stack direction="horizontal" gap={4}>
             <Batch handleShow={handleShow} />
             <Stack gap={3}>
-              <Button variant="success">Publish</Button>
+              <Button variant="success" onClick={createBatch}>
+                Publish
+              </Button>
               <Button variant="outline-info">Save for later</Button>
               <Button variant="outline-secondary">Clear all</Button>
             </Stack>

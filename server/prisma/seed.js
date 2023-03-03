@@ -28,52 +28,52 @@ async function seed() {
     include: { profile: true },
   });
 
-  const book1 = await prisma.book.create({
-    data: {
-      title: "The Magic Mountain",
-      author: "Thomas Mann",
-      year: "1924",
-    },
-  });
+  // const book1 = await prisma.book.create({
+  //   data: {
+  //     title: "The Magic Mountain",
+  //     author: "Thomas Mann",
+  //     year: "1924",
+  //   },
+  // });
 
-  const book2 = await prisma.book.create({
-    data: {
-      title: "Buddenbrooks",
-      author: "Thomas Mann",
-      year: "1901",
-    },
-  });
+  // const book2 = await prisma.book.create({
+  //   data: {
+  //     title: "Buddenbrooks",
+  //     author: "Thomas Mann",
+  //     year: "1901",
+  //   },
+  // });
 
-  const book3 = await prisma.book.create({
-    data: {
-      title: "Doctor Faustus",
-      author: "Thomas Mann",
-      year: "1947",
-    },
-  });
+  // const book3 = await prisma.book.create({
+  //   data: {
+  //     title: "Doctor Faustus",
+  //     author: "Thomas Mann",
+  //     year: "1947",
+  //   },
+  // });
 
-  const tag1 = await prisma.tag.create({
-    data: {
-      title: "author intro",
-    },
-  });
+  // const tag1 = await prisma.tag.create({
+  //   data: {
+  //     title: "author intro",
+  //   },
+  // });
 
-  const batch = await prisma.batch.create({
-    data: {
-      title: "Thomas Mann introduction",
-      userId: joel.id,
-      books: {
-        connect: [{ id: book1.id, id: book2.id, id: book3.id }],
-      },
-      tags: {
-        connect: { id: tag1.id },
-      },
-    },
-    include: {
-      books: true,
-      tags: true,
-    },
-  });
+  // const batch = await prisma.batch.create({
+  //   data: {
+  //     title: "Thomas Mann introduction",
+  //     userId: joel.id,
+  //     books: {
+  //       connect: [{ id: book1.id, id: book2.id, id: book3.id }],
+  //     },
+  //     tags: {
+  //       connect: { id: tag1.id },
+  //     },
+  //   },
+  //   include: {
+  //     books: true,
+  //     tags: true,
+  //   },
+  // });
 }
 
 seed()
