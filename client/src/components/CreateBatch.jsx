@@ -6,6 +6,7 @@ import { Container, Modal, Button, Form, Stack } from "react-bootstrap";
 import Batch from "./Batch";
 import BookResult from "./BookResult";
 import CreateTags from "./CreateTags";
+import CreatePost from "./CreatePost";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
@@ -28,9 +29,11 @@ const CreateBatch = () => {
     <>
       {loggedInUser && (
         <Container>
-          <h5 className="mt-4 mb-4">
+          <h4 className="mt-4 mb-4">
             Hello {loggedInUser.username}. Create your batch below!
-          </h5>
+          </h4>
+          <h5>Books</h5>
+          <p>Click on the + icon to find a book!</p>
           <Stack direction="horizontal" gap={4}>
             <Batch handleShow={handleShow} />
             <Stack gap={3}>
@@ -40,6 +43,7 @@ const CreateBatch = () => {
             </Stack>
           </Stack>
           <CreateTags />
+          <CreatePost />
 
           {/* modal section */}
           <Modal show={showBookModal} onHide={handleClose} size="lg">
