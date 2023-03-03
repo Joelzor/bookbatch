@@ -88,7 +88,7 @@ model Book {
   author    String?
   cover     String?
   year      String?
-  googleId  String?
+  googleId  String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   batches   Batch[]

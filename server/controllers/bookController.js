@@ -9,7 +9,7 @@ const getAllBooks = async (req, res) => {
 };
 
 const createBook = async (req, res, next) => {
-  const { title, author, cover, year } = req.body;
+  const { title, author, cover, year, googleId } = req.body;
 
   if (!title) {
     return next(createCustomError("You must provide a title", 400));
@@ -23,6 +23,7 @@ const createBook = async (req, res, next) => {
       author,
       cover,
       year,
+      googleId,
     },
   });
 
