@@ -28,7 +28,7 @@ const CreateBatch = () => {
   return (
     <>
       {loggedInUser && (
-        <Container>
+        <Container className="p-2">
           <h4 className="mt-4 mb-4">
             Hello {loggedInUser.username}. Create your batch below!
           </h4>

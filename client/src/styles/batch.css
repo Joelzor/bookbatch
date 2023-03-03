@@ -3,11 +3,27 @@
   padding: 10px;
 }
 
+.batch-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .batch-column {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 150px;
+}
+
+.edit-batch-title-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: #78c2ad;
+  transition: all 0.5s;
+}
+
+.edit-batch-title-btn:hover {
+  color: #a1d4c6;
 }
 
 .add-batch-btn {
@@ -58,5 +74,3 @@
 .delete-icon:hover {
   color: #ff8787;
 }
-
-/* CreateBatch general styles */

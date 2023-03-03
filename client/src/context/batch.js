@@ -8,6 +8,8 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const BatchProvider = ({ children }) => {
   const [localBooks, setLocalBooks] = useState([]);
   const [localTags, setLocalTags] = useState([]);
+  const [localPost, setLocalPost] = useState("");
+  const [localTitle, setLocalTitle] = useState("My batch");
 
   const searchBooks = async (query) => {
     const res = await fetch(
@@ -51,6 +53,9 @@ const BatchProvider = ({ children }) => {
     deleteLocalBook,
     localTags,
     setLocalTags,
+    setLocalPost,
+    localTitle,
+    setLocalTitle,
   };
 
   return (
