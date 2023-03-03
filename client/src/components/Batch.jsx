@@ -27,9 +27,14 @@ const Batch = ({ handleShow }) => {
           );
         })}
         <Col>
-          <Stack className="batch-column" style={{ height: "150px" }}>
-            <AiFillPlusCircle className="add-batch-btn" onClick={handleShow} />
-          </Stack>
+          {localBooks.length < 6 && (
+            <Stack className="batch-column" style={{ height: "150px" }}>
+              <AiFillPlusCircle
+                className="add-batch-btn"
+                onClick={handleShow}
+              />
+            </Stack>
+          )}
         </Col>
         <Col></Col>
         <Col></Col>

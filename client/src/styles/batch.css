@@ -14,7 +14,12 @@
 .add-batch-btn {
   font-size: 60px;
   cursor: pointer;
-  color: green;
+  color: #78c2ad;
+  transition: all 0.5s;
+}
+
+.add-batch-btn:hover {
+  color: #a1d4c6;
 }
 
 .search-form-modal {
