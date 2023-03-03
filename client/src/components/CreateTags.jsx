@@ -1,5 +1,5 @@
 import CreatableSelect from "react-select/creatable";
-import { Stack } from "react-bootstrap";
+import { Stack, Badge } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
 import tagOptions from "../data/tag-options";
 
@@ -8,6 +8,10 @@ const CreateTags = () => {
 
   return (
     <Stack className="mt-4" style={{ width: "80%" }}>
+      <h5>Tags</h5>
+      <p>
+        Mix and match tags- select default or start typing to create your own
+      </p>
       <CreatableSelect
         isMulti
         options={tagOptions.map((tag) => {
@@ -21,7 +25,15 @@ const CreateTags = () => {
           );
         }}
       />
-      <Stack direction="horizontal" gap={2}></Stack>
+      <Stack direction="horizontal" gap={2} className="mt-3">
+        {localTags.map((tag, index) => {
+          return (
+            <Badge key={index} bg="secondary">
+              {tag.label}
+            </Badge>
+          );
+        })}
+      </Stack>
     </Stack>
   );
 };

@@ -1,6 +1,6 @@
 const tagOptions = [
   {
-    title: "author-intro",
+    title: "author intro",
   },
   {
     title: "year",
@@ -9,7 +9,7 @@ const tagOptions = [
     title: "theme",
   },
   {
-    title: "award-winners",
+    title: "award winners",
   },
 ];
 
