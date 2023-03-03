@@ -30,7 +30,14 @@ const CreateBatch = () => {
           <h5 className="mt-4 mb-4">
             Hello {loggedInUser.username}. Create your batch below!
           </h5>
-          <Batch handleShow={handleShow} />
+          <Stack direction="horizontal" gap={4}>
+            <Batch handleShow={handleShow} />
+            <Stack gap={3}>
+              <Button variant="success">Publish</Button>
+              <Button variant="outline-info">Save for later</Button>
+              <Button variant="outline-danger">Clear all</Button>
+            </Stack>
+          </Stack>
           <Modal show={showBookModal} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Find book</Modal.Title>
