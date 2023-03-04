@@ -83,13 +83,14 @@ model Tag {
 }
 
 model Book {
-  id        Int      @id @default(autoincrement())
-  title     String
-  author    String?
-  cover     String?
-  year      String?
-  googleId  String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  batches   Batch[]
+  id            Int      @id @default(autoincrement())
+  title         String
+  author        String?
+  cover         String?
+  yearPublished String?
+  pageCount     Int?
+  googleId      String?  @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  batches       Batch[]
 }

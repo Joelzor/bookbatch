@@ -4,11 +4,10 @@ import "../styles/bookResult.css";
 import defaultImage from "../images/notfound.png";
 
 const BookResult = ({ bookInfo, handleClose }) => {
-  const { saveBook, localBooks, setLocalBooks } = useBatchContext();
+  const { localBooks, setLocalBooks } = useBatchContext();
   const { title, authors, description, imageLinks } = bookInfo.volumeInfo;
 
   const addToBatch = (bookInfo) => {
-    saveBook(bookInfo);
     setLocalBooks([...localBooks, bookInfo]);
     handleClose();
   };

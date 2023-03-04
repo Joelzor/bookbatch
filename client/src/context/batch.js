@@ -22,26 +22,6 @@ const BatchProvider = ({ children }) => {
     return items;
   };
 
-  const saveBook = async (book) => {
-    const { title, authors, imageLinks } = book.volumeInfo;
-    const { id } = book;
-
-    const payload = {
-      title,
-      author: authors.join(" & "),
-      cover: imageLinks?.smallThumbnail || null,
-      googleId: id,
-    };
-
-    await fetch(`${baseUrl}/books`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-  };
-
   const deleteLocalBook = (id) => {
     setLocalBooks((prevBooks) => {
       return prevBooks.filter((book) => book.id !== id);
@@ -49,15 +29,28 @@ const BatchProvider = ({ children }) => {
   };
 
   const createBatch = async () => {
+    const curatedBooks = localBooks.map((book) => {
+      const { title, authors, imageLinks, publishedDate, pageCount } =
+        book.volumeInfo;
+      const yearPublished = new Date(publishedDate).getFullYear();
+      const { id } = book;
+      return {
+        title,
+        author: authors.join(" & ") || null,
+        cover: imageLinks?.smallThumbnail || null,
+        googleId: id,
+        yearPublished: yearPublished.toString() || null,
+        pageCount: pageCount || null,
+      };
+    });
+
     const batch = {
       title: localTitle,
-      books: localBooks,
+      books: curatedBooks,
       tags: localTags,
       post: localPost,
       published: true,
     };
-
-    // console.log(batch);
 
     const token = localStorage.getItem("access-token");
 
@@ -71,11 +64,11 @@ const BatchProvider = ({ children }) => {
     });
 
     const newBatch = await res.json();
+    setBatches([...batches, newBatch]);
   };
 
   const value = {
     searchBooks,
-    saveBook,
     localBooks,
     setLocalBooks,
     deleteLocalBook,

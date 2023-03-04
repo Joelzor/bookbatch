@@ -18,9 +18,9 @@ const getAllBatches = async (req, res) => {
 const createBatch = async (req, res, next) => {
   const { title, published, books, tags, post } = req.body;
 
-  // if (!books) {
-  //   return next(createCustomError("A batch must include some books!", 400));
-  // }
+  if (!books) {
+    return next(createCustomError("A batch must include some books!", 400));
+  }
 
   const tagArr = [];
   tags.forEach((tag) => {
@@ -33,6 +33,25 @@ const createBatch = async (req, res, next) => {
       },
     });
   });
+
+  const bookArr = [];
+  books.forEach((book) => {
+    bookArr.push({
+      where: {
+        googleId: book.googleId,
+      },
+      create: {
+        title: book.title,
+        author: book.author,
+        cover: book.cover,
+        googleId: book.googleId,
+        yearPublished: book.yearPublished,
+        pageCount: book.pageCount,
+      },
+    });
+  });
+
+  console.log(bookArr);
 
   const newBatch = await prisma.batch.create({
     data: {
@@ -50,6 +69,9 @@ const createBatch = async (req, res, next) => {
       },
       tags: {
         connectOrCreate: tagArr,
+      },
+      books: {
+        connectOrCreate: bookArr,
       },
     },
     include: {
