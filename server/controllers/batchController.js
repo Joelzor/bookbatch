@@ -51,8 +51,6 @@ const createBatch = async (req, res, next) => {
     });
   });
 
-  console.log(bookArr);
-
   const newBatch = await prisma.batch.create({
     data: {
       title,

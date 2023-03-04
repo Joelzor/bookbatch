@@ -138,7 +138,7 @@ const UserForm = ({ login = false }) => {
               />
             </Form.Group>
           </Row>
-          <Button type="submit">
+          <Button type="submit" className="mb-4">
             {!login && "Sign me up"}
             {login && "Log me in"}
           </Button>
