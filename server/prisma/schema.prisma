@@ -45,7 +45,7 @@ model Batch {
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   books     Book[]
-  posts     Post[]
+  post      Post?
   tags      Tag[]
 }
 
@@ -58,8 +58,8 @@ model Post {
   User      User?     @relation(fields: [userId], references: [id])
   userId    Int?
   comments  Comment[]
-  Batch     Batch?    @relation(fields: [batchId], references: [id])
-  batchId   Int?
+  batch     Batch?    @relation(fields: [batchId], references: [id])
+  batchId   Int?      @unique
 }
 
 model Comment {
