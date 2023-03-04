@@ -18,25 +18,49 @@ const getAllBatches = async (req, res) => {
 const createBatch = async (req, res, next) => {
   const { title, published, books, tags, post } = req.body;
 
-  console.log(req.body);
+  // if (!books) {
+  //   return next(createCustomError("A batch must include some books!", 400));
+  // }
 
-  if (!books) {
-    return next(createCustomError("A batch must include some books!", 400));
-  }
+  const tagArr = [];
+  tags.forEach((tag) => {
+    tagArr.push({
+      where: {
+        title: tag.label,
+      },
+      create: {
+        title: tag.label,
+      },
+    });
+  });
 
   const newBatch = await prisma.batch.create({
     data: {
       title,
       published,
+      post: {
+        create: {
+          body: post,
+        },
+      },
       user: {
         connect: {
           id: req.user.id,
         },
       },
+      tags: {
+        connectOrCreate: tagArr,
+      },
+    },
+    include: {
+      books: true,
+      tags: true,
+      post: true,
+      user: true,
     },
   });
 
-  res.status(201).json({ msg: "success" });
+  res.status(201).json(newBatch);
 };
 
 module.exports = { getAllBatches, createBatch };

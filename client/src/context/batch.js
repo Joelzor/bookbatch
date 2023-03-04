@@ -57,6 +57,8 @@ const BatchProvider = ({ children }) => {
       published: true,
     };
 
+    // console.log(batch);
+
     const token = localStorage.getItem("access-token");
 
     const res = await fetch(`${baseUrl}/batches`, {

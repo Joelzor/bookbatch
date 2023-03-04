@@ -75,7 +75,7 @@ model Comment {
 
 model Tag {
   id        Int      @id @default(autoincrement())
-  title     String
+  title     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Batch     Batch?   @relation(fields: [batchId], references: [id])
