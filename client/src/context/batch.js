@@ -24,11 +24,13 @@ const BatchProvider = ({ children }) => {
 
   const saveBook = async (book) => {
     const { title, authors, imageLinks } = book.volumeInfo;
+    const { id } = book;
 
     const payload = {
       title,
       author: authors.join(" & "),
       cover: imageLinks?.smallThumbnail || null,
+      googleId: id,
     };
 
     await fetch(`${baseUrl}/books`, {
@@ -46,15 +48,27 @@ const BatchProvider = ({ children }) => {
     });
   };
 
-  const createBatch = () => {
+  const createBatch = async () => {
     const batch = {
       title: localTitle,
       books: localBooks,
       tags: localTags,
       post: localPost,
+      published: true,
     };
 
-    console.log(batch);
+    const token = localStorage.getItem("access-token");
+
+    const res = await fetch(`${baseUrl}/batches`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(batch),
+    });
+
+    const newBatch = await res.json();
   };
 
   const value = {
