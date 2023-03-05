@@ -11,7 +11,8 @@ import Notification from "./Notification";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
-  const { searchBooks, createBatch, localBooks } = useBatchContext();
+  const { searchBooks, createBatch, localBooks, localTags, localPost } =
+    useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,14 +32,33 @@ const CreateBatch = () => {
   };
 
   const publish = () => {
+    setErrorResponse(false);
+    createBatch();
+  };
+
+  const checkBatchStatus = () => {
     if (localBooks.length < 2) {
       setErrorResponse(true);
       return;
     }
 
     handlePublishShow();
-    setErrorResponse(false);
-    // createBatch();
+  };
+
+  const warningGenerator = () => {
+    // if (localTags.length === 0 && !localPost) {
+    //   return "You have no tags or post! Are you sure you want to publish?";
+    // } else if (localTags.length === 0) {
+    //   return "You don't have any tags! Are you sure you want to publish?";
+    // } else if (!localPost) {
+    //   return "You haven't written a post! Are you sure you want to publish?";
+    // }
+
+    if (localTags.length === 0) {
+      return "You don't have any tags! Are you sure you want to publish?";
+    }
+
+    return "Are you sure you want to publish your batch?";
   };
 
   const removeAlert = () => {
@@ -59,7 +79,7 @@ const CreateBatch = () => {
           <Stack direction="horizontal" gap={4}>
             <Batch handleShow={handleShow} />
             <Stack gap={3}>
-              <Button variant="success" onClick={publish}>
+              <Button variant="success" onClick={checkBatchStatus}>
                 Publish
               </Button>
               <Button variant="outline-info">Save for later</Button>
@@ -122,17 +142,15 @@ const CreateBatch = () => {
           {/* publish modal */}
           <Modal show={showPublishModal} onHide={handlePublishClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Publish batch</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              Woohoo, you're reading this text in a modal!
-            </Modal.Body>
+            <Modal.Body>{warningGenerator()}</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handlePublishClose}>
-                Close
+                Back
               </Button>
-              <Button variant="primary" onClick={handlePublishClose}>
-                Save Changes
+              <Button variant="primary" onClick={publish}>
+                {localTags.length === 0 ? "Publish anyway" : "Publish"}
               </Button>
             </Modal.Footer>
           </Modal>
