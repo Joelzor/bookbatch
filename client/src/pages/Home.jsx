@@ -1,5 +1,4 @@
-// import { Container, Stack, Image } from "react-bootstrap";
-import Hero from "./Hero";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Row, Stack, Container } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
-import Notification from "./Notification";
+import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
 
 const UserForm = ({ login = false }) => {

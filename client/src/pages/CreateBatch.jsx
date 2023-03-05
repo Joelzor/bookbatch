@@ -3,16 +3,15 @@ import { useGlobalContext } from "../context/auth";
 import { useBatchContext } from "../context/batch";
 import "../styles/batch.css";
 import { Container, Modal, Button, Form, Stack } from "react-bootstrap";
-import Batch from "./Batch";
-import BookResult from "./BookResult";
-import CreateTags from "./CreateTags";
-import CreatePost from "./CreatePost";
-import Notification from "./Notification";
+import Batch from "../components/Batch";
+import BookResult from "../components/BookResult";
+import CreateTags from "../components/CreateTags";
+import CreatePost from "../components/CreatePost";
+import Notification from "../components/Notification";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
-  const { searchBooks, createBatch, localBooks, localTags, localPost } =
-    useBatchContext();
+  const { searchBooks, createBatch, localBooks, localTags } = useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");

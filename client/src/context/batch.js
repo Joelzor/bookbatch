@@ -67,6 +67,12 @@ const BatchProvider = ({ children }) => {
     setBatches([...batches, newBatch]);
   };
 
+  const getBatch = async (id) => {
+    const res = await fetch(`${baseUrl}/batches/${id}`);
+    const data = await res.json();
+    return data;
+  };
+
   const value = {
     searchBooks,
     localBooks,
@@ -79,6 +85,7 @@ const BatchProvider = ({ children }) => {
     setLocalTitle,
     createBatch,
     batches,
+    getBatch,
   };
 
   return (
