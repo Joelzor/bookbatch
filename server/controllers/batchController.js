@@ -7,12 +7,38 @@ const getAllBatches = async (req, res) => {
     include: {
       books: true,
       tags: true,
-      posts: true,
+      post: true,
       user: true,
     },
   });
 
   res.status(200).json(batches);
+};
+
+const getBatchById = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  const batch = await prisma.batch.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      books: true,
+      tags: true,
+      post: {
+        include: {
+          comments: true,
+        },
+      },
+      user: true,
+    },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${id}`, 404));
+  }
+
+  res.status(200).json(batch);
 };
 
 const createBatch = async (req, res, next) => {
@@ -83,4 +109,4 @@ const createBatch = async (req, res, next) => {
   res.status(201).json(newBatch);
 };
 
-module.exports = { getAllBatches, createBatch };
+module.exports = { getAllBatches, createBatch, getBatchById };
