@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Card, Row, Stack, Col, Badge } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
+import "../styles/batchView.css";
 
 const BatchView = () => {
   const { getBatch } = useBatchContext();
@@ -15,9 +16,44 @@ const BatchView = () => {
     });
   }, [getBatch, id]);
 
+  console.log(batch);
+
   return (
     <Container>
-      <h4>Batch view page</h4>
+      {batch && (
+        <>
+          <Card className="batch-container mt-4">
+            <Card.Header>{batch.title}</Card.Header>
+            <Row>
+              {batch.books.map((book) => {
+                return (
+                  <Col key={book.id} className="p-3 book-container">
+                    <Stack gap={2}>
+                      <img
+                        src={book.cover || null}
+                        alt={`${book.title} cover`}
+                        className="book-image"
+                      />
+                      <p className="title-text">{book.title}</p>
+                    </Stack>
+                  </Col>
+                );
+              })}
+            </Row>
+            <Row>
+              <Stack direction="horizontal" gap={2} className="mt-3">
+                {batch.tags.map((tag) => {
+                  return (
+                    <Badge key={tag.id} bg="primary">
+                      {tag.title}
+                    </Badge>
+                  );
+                })}
+              </Stack>
+            </Row>
+          </Card>
+        </>
+      )}
     </Container>
   );
 };
