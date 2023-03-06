@@ -13,7 +13,7 @@ const BatchProvider = ({ children }) => {
   const [localTitle, setLocalTitle] = useState("My batch");
 
   const getAllBatches = async () => {
-    const res = await fetch(`${baseUrl}/batches`);
+    const res = await fetch(`${baseUrl}/batches?published=true`);
     const data = await res.json();
 
     setBatches(data);

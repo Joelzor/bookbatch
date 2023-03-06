@@ -3,7 +3,13 @@ const prisma = new PrismaClient();
 const { createCustomError } = require("../errors/custom-error");
 
 const getAllBatches = async (req, res) => {
+  let { published } = req.query;
+  published = published === "true" ? true : false;
+
   const batches = await prisma.batch.findMany({
+    where: {
+      published,
+    },
     include: {
       books: true,
       tags: true,
@@ -45,6 +51,26 @@ const getBatchById = async (req, res, next) => {
   delete batch.user.password;
 
   res.status(200).json(batch);
+};
+
+const getBatchesByUser = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    return next(createCustomError(`Cannot find user with ID ${id}`, 404));
+  }
+
+  const batches = await prisma.batch.findMany({
+    where: {
+      userId: id,
+    },
+  });
+
+  res.status(200).json(batches);
 };
 
 const createBatch = async (req, res, next) => {
@@ -115,4 +141,4 @@ const createBatch = async (req, res, next) => {
   res.status(201).json(newBatch);
 };
 
-module.exports = { getAllBatches, createBatch, getBatchById };
+module.exports = { getAllBatches, createBatch, getBatchById, getBatchesByUser };
