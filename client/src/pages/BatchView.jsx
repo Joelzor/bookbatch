@@ -20,9 +20,6 @@ const BatchView = () => {
     });
   }, [getBatch, id]);
 
-  console.log("user:", loggedInUser);
-  console.log(batch);
-
   return (
     <Container>
       {batch && (

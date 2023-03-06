@@ -1,7 +1,7 @@
 import { Card, Row, Col, Stack, Badge } from "react-bootstrap";
 import "../styles/batchView.css";
 
-const PublishedBatch = ({ batch }) => {
+const PublishedBatch = ({ batch, small = false }) => {
   return (
     <Card className="batch-container mt-4">
       <Card.Header className="batch-header">
@@ -16,7 +16,7 @@ const PublishedBatch = ({ batch }) => {
                 <img
                   src={book.cover || null}
                   alt={`${book.title} cover`}
-                  className="book-image"
+                  className={small ? "book-image-small" : "book-image"}
                 />
                 <p className="title-text">{book.title}</p>
                 <p className="author-text">{book.author || "No author data"}</p>

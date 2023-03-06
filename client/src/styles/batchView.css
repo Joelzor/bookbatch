@@ -12,3 +12,8 @@
 .btn-container {
   margin-top: 25px;
 }
+
+.book-image-small {
+  height: auto;
+  width: 80px;
+}

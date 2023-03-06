@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const BatchContext = createContext();
 
@@ -11,6 +11,17 @@ const BatchProvider = ({ children }) => {
   const [localTags, setLocalTags] = useState([]);
   const [localPost, setLocalPost] = useState("");
   const [localTitle, setLocalTitle] = useState("My batch");
+
+  const getAllBatches = async () => {
+    const res = await fetch(`${baseUrl}/batches`);
+    const data = await res.json();
+
+    setBatches(data);
+  };
+
+  useEffect(() => {
+    getAllBatches();
+  }, []);
 
   const searchBooks = async (query) => {
     const res = await fetch(
@@ -64,7 +75,7 @@ const BatchProvider = ({ children }) => {
     });
 
     const newBatch = await res.json();
-    setBatches([...batches, newBatch]);
+    return newBatch;
   };
 
   const getBatch = async (id) => {
