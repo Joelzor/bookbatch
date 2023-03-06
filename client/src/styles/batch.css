@@ -53,7 +53,9 @@
 }
 
 .book-image {
-  height: 167px;
+  /* height: 167px;
+  width: 128px; */
+  height: auto;
   width: 128px;
 }
 

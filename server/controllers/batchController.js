@@ -12,6 +12,10 @@ const getAllBatches = async (req, res) => {
     },
   });
 
+  batches.forEach((batch) => {
+    delete batch.user.password;
+  });
+
   res.status(200).json(batches);
 };
 
@@ -37,6 +41,8 @@ const getBatchById = async (req, res, next) => {
   if (!batch) {
     return next(createCustomError(`There is no batch with id ${id}`, 404));
   }
+
+  delete batch.user.password;
 
   res.status(200).json(batch);
 };
