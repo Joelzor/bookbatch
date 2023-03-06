@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/auth";
 import { useBatchContext } from "../context/batch";
 import "../styles/batch.css";
@@ -17,6 +18,7 @@ const CreateBatch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [errorResponse, setErrorResponse] = useState(false);
+  const navigate = useNavigate();
 
   const handleClose = () => setShowBookModal(false);
   const handleShow = () => setShowBookModal(true);
@@ -30,9 +32,10 @@ const CreateBatch = () => {
     setResults(searchResults);
   };
 
-  const publish = () => {
+  const publish = async () => {
     setErrorResponse(false);
-    createBatch();
+    const newBatch = await createBatch();
+    navigate(`/batches/${newBatch.id}`);
   };
 
   const checkBatchStatus = () => {

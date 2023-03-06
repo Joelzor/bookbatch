@@ -14,7 +14,7 @@ const Home = () => {
   }, [batches]);
 
   return (
-    <Container>
+    <Container className="p-4">
       <h4 className="mt-4 text-center">WELCOME BACK</h4>
       <h5>Latest batches</h5>
       <Stack>

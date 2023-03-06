@@ -8,7 +8,7 @@ const PublishedBatch = ({ batch, small = false }) => {
         <p>{batch.title}</p>
         <p>{`Created by ${batch.user.username}`}</p>
       </Card.Header>
-      <Row>
+      <Row className={small ? "book-row-small" : ""}>
         {batch.books.map((book) => {
           return (
             <Col key={book.id} className="p-3 book-container">
