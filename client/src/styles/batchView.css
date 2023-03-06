@@ -15,6 +15,15 @@
 
 /* small version of PublishedBatch */
 
+.batch-card-small {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.batch-card-small:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .book-image-small {
   height: auto;
   width: 80px;

@@ -5,3 +5,14 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* logged in homepage */
+
+.batch-link {
+  text-decoration: none;
+  color: #888;
+}
+
+.batch-link:hover {
+  color: #888;
+}

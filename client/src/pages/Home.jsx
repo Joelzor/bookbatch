@@ -1,7 +1,9 @@
 import { Container, Stack } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useBatchContext } from "../context/batch";
 import PublishedBatch from "../components/PublishedBatch";
 import { useEffect, useState } from "react";
+import "../styles/home.css";
 
 const Home = () => {
   const { batches } = useBatchContext();
@@ -20,8 +22,12 @@ const Home = () => {
       <Stack>
         {lastBatch && secondLastBatch && (
           <>
-            <PublishedBatch batch={lastBatch} small={true} />
-            <PublishedBatch batch={secondLastBatch} small={true} />
+            <Link to={`/batches/${lastBatch.id}`} className="batch-link">
+              <PublishedBatch batch={lastBatch} small={true} />
+            </Link>
+            <Link to={`/batches/${secondLastBatch.id}`} className="batch-link">
+              <PublishedBatch batch={secondLastBatch} small={true} />
+            </Link>
           </>
         )}
       </Stack>

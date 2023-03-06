@@ -3,7 +3,7 @@ import "../styles/batchView.css";
 
 const PublishedBatch = ({ batch, small = false }) => {
   return (
-    <Card className="batch-container mt-4">
+    <Card className={`batch-container mt-4 ${small && "batch-card-small"}`}>
       <Card.Header className="batch-header">
         <p>{batch.title}</p>
         <p>{`Created by ${batch.user.username}`}</p>
