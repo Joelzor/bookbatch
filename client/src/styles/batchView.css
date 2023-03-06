@@ -7,3 +7,13 @@
   height: auto;
   width: 128px;
 } */
+
+.author-text {
+  font-size: 12px;
+  font-style: italic;
+  margin-top: -25px;
+}
+
+.btn-container {
+  margin-top: 25px;
+}

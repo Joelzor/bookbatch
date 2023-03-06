@@ -36,7 +36,7 @@ const CreateBatch = () => {
   };
 
   const checkBatchStatus = () => {
-    if (localBooks.length < 2) {
+    if (localBooks.length < 3) {
       setErrorResponse(true);
       return;
     }
@@ -86,7 +86,7 @@ const CreateBatch = () => {
               {errorResponse && (
                 <>
                   <Notification
-                    message="You need at least 2 books!"
+                    message="You need at least 3 books!"
                     type="secondary"
                   />
                   {removeAlert()}
