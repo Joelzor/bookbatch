@@ -18,6 +18,8 @@
 .batch-card-small {
   cursor: pointer;
   transition: all 0.3s;
+  width: 100%;
+  padding: 10px;
 }
 
 .batch-card-small:hover {
