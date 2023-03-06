@@ -1,4 +1,4 @@
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -27,9 +27,20 @@ const Header = () => {
               )}
               {loggedInUser && (
                 <>
-                  <Nav.Link href="/newbatch">Create a batch</Nav.Link>
-                  <Nav.Link href="/profile">My profile</Nav.Link>
-                  <Nav.Link onClick={userLogout}>Log out</Nav.Link>
+                  <NavDropdown title="Batches">
+                    <NavDropdown.Item href="/newbatch">
+                      Create a batch
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>My batches</NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown title="Profile">
+                    <NavDropdown.Item href="/profile">
+                      My profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={userLogout}>
+                      Log out
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </>
               )}
             </Nav>
