@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useGlobalContext } from "./auth";
 
 const BatchContext = createContext();
 
@@ -11,6 +12,7 @@ const BatchProvider = ({ children }) => {
   const [localTags, setLocalTags] = useState([]);
   const [localPost, setLocalPost] = useState("");
   const [localTitle, setLocalTitle] = useState("My batch");
+  const { loggedInUser } = useGlobalContext();
 
   const getAllBatches = async () => {
     const res = await fetch(`${baseUrl}/batches?published=true`);
@@ -84,6 +86,12 @@ const BatchProvider = ({ children }) => {
     return data;
   };
 
+  const getMyBatches = async () => {
+    const res = await fetch(`${baseUrl}/batches/user/${loggedInUser.id}`);
+    const data = await res.json();
+    return data;
+  };
+
   const clearAll = () => {
     setLocalBooks([]);
     setLocalTags([]);
@@ -105,6 +113,7 @@ const BatchProvider = ({ children }) => {
     batches,
     getBatch,
     clearAll,
+    getMyBatches,
   };
 
   return (

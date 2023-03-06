@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import UserForm from "./pages/UserForm";
 import CreateBatch from "./pages/CreateBatch";
 import BatchView from "./pages/BatchView";
+import MyBatches from "./pages/MyBatches";
 import { useGlobalContext } from "./context/auth";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<UserForm login={true} />} />
         <Route path="/register" element={<UserForm />} />
         <Route path="/newbatch" element={<CreateBatch />} />
+        <Route path="/mybatches" element={<MyBatches />} />
         <Route path="/batches" element={<h1>Browse batches</h1>} />
         <Route path="/batches/:id" element={<BatchView />} />
         <Route path="/profile" element={<h1>My profile</h1>} />

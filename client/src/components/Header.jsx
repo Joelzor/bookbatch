@@ -27,11 +27,15 @@ const Header = () => {
               )}
               {loggedInUser && (
                 <>
+                  <Nav.Link href="/batches">Search</Nav.Link>
                   <NavDropdown title="Batches">
                     <NavDropdown.Item href="/newbatch">
                       Create a batch
                     </NavDropdown.Item>
-                    <NavDropdown.Item>My batches</NavDropdown.Item>
+                    <NavDropdown.Item href="/mybatches">
+                      My batches
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>Saved</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title="Profile">
                     <NavDropdown.Item href="/profile">
