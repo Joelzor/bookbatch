@@ -68,6 +68,12 @@ const getBatchesByUser = async (req, res, next) => {
     where: {
       userId: id,
     },
+    include: {
+      books: true,
+      tags: true,
+      post: true,
+      user: true,
+    },
   });
 
   res.status(200).json(batches);

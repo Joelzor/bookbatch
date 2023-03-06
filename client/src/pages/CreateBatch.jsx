@@ -12,9 +12,11 @@ import Notification from "../components/Notification";
 
 const CreateBatch = () => {
   const { loggedInUser } = useGlobalContext();
-  const { searchBooks, createBatch, localBooks, localTags } = useBatchContext();
+  const { searchBooks, createBatch, localBooks, localTags, clearAll } =
+    useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [errorResponse, setErrorResponse] = useState(false);
@@ -24,6 +26,8 @@ const CreateBatch = () => {
   const handleShow = () => setShowBookModal(true);
   const handlePublishClose = () => setShowPublishModal(false);
   const handlePublishShow = () => setShowPublishModal(true);
+  const handleSaveClose = () => setShowSaveModal(false);
+  const handleSaveShow = () => setShowSaveModal(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +40,11 @@ const CreateBatch = () => {
     setErrorResponse(false);
     const newBatch = await createBatch();
     navigate(`/batches/${newBatch.id}`);
+  };
+
+  const save = () => {
+    createBatch(false);
+    navigate("/");
   };
 
   const checkBatchStatus = () => {
@@ -84,8 +93,12 @@ const CreateBatch = () => {
               <Button variant="success" onClick={checkBatchStatus}>
                 Publish
               </Button>
-              <Button variant="outline-info">Save for later</Button>
-              <Button variant="outline-secondary">Clear all</Button>
+              <Button variant="outline-info" onClick={handleSaveShow}>
+                Save for later
+              </Button>
+              <Button variant="outline-secondary" onClick={clearAll}>
+                Clear all
+              </Button>
               {errorResponse && (
                 <>
                   <Notification
@@ -153,6 +166,25 @@ const CreateBatch = () => {
               </Button>
               <Button variant="primary" onClick={publish}>
                 {localTags.length === 0 ? "Publish anyway" : "Publish"}
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          {/* save modal */}
+          <Modal show={showSaveModal} onHide={handleSaveClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Save batch</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              By confirming, you are saving this batch for later. It will not be
+              published.
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleSaveClose}>
+                Back
+              </Button>
+              <Button variant="primary" onClick={save}>
+                Save
               </Button>
             </Modal.Footer>
           </Modal>

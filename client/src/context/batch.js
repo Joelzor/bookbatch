@@ -39,7 +39,7 @@ const BatchProvider = ({ children }) => {
     });
   };
 
-  const createBatch = async () => {
+  const createBatch = async (publish = true) => {
     const curatedBooks = localBooks.map((book) => {
       const { title, authors, imageLinks, publishedDate, pageCount } =
         book.volumeInfo;
@@ -60,7 +60,7 @@ const BatchProvider = ({ children }) => {
       books: curatedBooks,
       tags: localTags,
       post: localPost,
-      published: true,
+      published: publish,
     };
 
     const token = localStorage.getItem("access-token");
@@ -84,6 +84,13 @@ const BatchProvider = ({ children }) => {
     return data;
   };
 
+  const clearAll = () => {
+    setLocalBooks([]);
+    setLocalTags([]);
+    setLocalPost("");
+    setLocalTitle("My batch");
+  };
+
   const value = {
     searchBooks,
     localBooks,
@@ -97,6 +104,7 @@ const BatchProvider = ({ children }) => {
     createBatch,
     batches,
     getBatch,
+    clearAll,
   };
 
   return (

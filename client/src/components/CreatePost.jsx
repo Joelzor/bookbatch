@@ -2,7 +2,7 @@ import { Stack } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
 
 const CreatePost = () => {
-  const { setLocalPost } = useBatchContext();
+  const { localPost, setLocalPost } = useBatchContext();
 
   return (
     <Stack className="mt-4">
@@ -14,6 +14,7 @@ const CreatePost = () => {
         name="post"
         rows="5"
         style={{ width: "80%" }}
+        value={localPost}
         onChange={(e) => setLocalPost(e.target.value)}
       />
     </Stack>
