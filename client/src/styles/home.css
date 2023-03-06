@@ -1,9 +1,35 @@
 .background {
   background-image: url("../images/home2.jpg");
-  height: 92.1vh;
+  height: 92.6vh;
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.welcome-container {
+  padding-top: 100px;
+  align-items: center;
+}
+
+.sign-up-btn {
+  margin-top: 50px;
+  width: 200px;
+}
+
+.hero-text-container {
+  background-color: #78c2ad;
+  border-radius: 12px;
+}
+
+.hero-title {
+  padding: 12px;
+  color: #fff;
+}
+
+.hero-text {
+  font-style: italic;
+  color: #fff;
+  text-align: center;
 }
 
 /* logged in homepage */
