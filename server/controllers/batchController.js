@@ -2,6 +2,47 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { createCustomError } = require("../errors/custom-error");
 
+const tagsControl = (tags) => {
+  const tagArr = [];
+  if (tags) {
+    tags.forEach((tag) => {
+      tagArr.push({
+        where: {
+          title: tag.label,
+        },
+        create: {
+          title: tag.label,
+        },
+      });
+    });
+  }
+
+  return tagArr;
+};
+
+const booksControl = (books) => {
+  const bookArr = [];
+  if (books) {
+    books.forEach((book) => {
+      bookArr.push({
+        where: {
+          googleId: book.googleId,
+        },
+        create: {
+          title: book.title,
+          author: book.author,
+          cover: book.cover,
+          googleId: book.googleId,
+          yearPublished: book.yearPublished,
+          pageCount: book.pageCount,
+        },
+      });
+    });
+  }
+
+  return bookArr;
+};
+
 const getAllBatches = async (req, res) => {
   let { published } = req.query;
   published = published === "true" ? true : false;
@@ -86,34 +127,8 @@ const createBatch = async (req, res, next) => {
     return next(createCustomError("A batch must include some books!", 400));
   }
 
-  const tagArr = [];
-  tags.forEach((tag) => {
-    tagArr.push({
-      where: {
-        title: tag.label,
-      },
-      create: {
-        title: tag.label,
-      },
-    });
-  });
-
-  const bookArr = [];
-  books.forEach((book) => {
-    bookArr.push({
-      where: {
-        googleId: book.googleId,
-      },
-      create: {
-        title: book.title,
-        author: book.author,
-        cover: book.cover,
-        googleId: book.googleId,
-        yearPublished: book.yearPublished,
-        pageCount: book.pageCount,
-      },
-    });
-  });
+  const tagArr = tagsControl(tags);
+  const bookArr = booksControl(books);
 
   const newBatch = await prisma.batch.create({
     data: {
@@ -147,4 +162,73 @@ const createBatch = async (req, res, next) => {
   res.status(201).json(newBatch);
 };
 
-module.exports = { getAllBatches, createBatch, getBatchById, getBatchesByUser };
+const deleteBatch = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  const batch = await prisma.batch.findUnique({
+    where: { id },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${id}`, 404));
+  }
+
+  const deletedBatch = await prisma.batch.delete({
+    where: { id },
+  });
+
+  res.status(200).json({ message: "success", deletedBatch });
+};
+
+const updateBatch = async (req, res, next) => {
+  const id = Number(req.params.id);
+  const { title, published, books, tags, post } = req.body;
+
+  const batch = await prisma.batch.findUnique({
+    where: { id },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${id}`, 404));
+  }
+
+  const tagArr = tagsControl(tags);
+  const bookArr = booksControl(books);
+
+  const updatedBatch = await prisma.batch.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      published,
+      post: {
+        update: {
+          body: post,
+        },
+      },
+      books: {
+        connectOrCreate: bookArr,
+      },
+      tags: {
+        connectOrCreate: tagArr,
+      },
+    },
+    include: {
+      post: true,
+      books: true,
+      tags: true,
+    },
+  });
+
+  res.status(201).json(updatedBatch);
+};
+
+module.exports = {
+  getAllBatches,
+  createBatch,
+  getBatchById,
+  getBatchesByUser,
+  deleteBatch,
+  updateBatch,
+};
