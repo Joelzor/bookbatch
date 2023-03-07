@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalContext } from "../context/auth";
 import { useBatchContext } from "../context/batch";
 import "../styles/batch.css";
@@ -10,10 +10,16 @@ import CreateTags from "../components/CreateTags";
 import CreatePost from "../components/CreatePost";
 import Notification from "../components/Notification";
 
-const CreateBatch = () => {
+const CreateBatch = ({ editing = false }) => {
   const { loggedInUser } = useGlobalContext();
-  const { searchBooks, createBatch, localBooks, localTags, clearAll } =
-    useBatchContext();
+  const {
+    searchBooks,
+    createBatch,
+    localBooks,
+    localTags,
+    clearAll,
+    setUpBatchEdit,
+  } = useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -21,6 +27,7 @@ const CreateBatch = () => {
   const [results, setResults] = useState([]);
   const [errorResponse, setErrorResponse] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleClose = () => setShowBookModal(false);
   const handleShow = () => setShowBookModal(true);
@@ -28,6 +35,13 @@ const CreateBatch = () => {
   const handlePublishShow = () => setShowPublishModal(true);
   const handleSaveClose = () => setShowSaveModal(false);
   const handleSaveShow = () => setShowSaveModal(true);
+
+  // editing
+  useEffect(() => {
+    if (editing) {
+      setUpBatchEdit(id);
+    }
+  }, [editing, id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +97,8 @@ const CreateBatch = () => {
       {loggedInUser && (
         <Container className="p-2">
           <h4 className="mt-4 mb-4">
-            Hello {loggedInUser.username}. Create your batch below!
+            Hello {loggedInUser.username}. {editing ? "Edit" : "Create"} your
+            batch below!
           </h4>
           <h5>Books</h5>
           <p>Click on the + icon to find a book!</p>

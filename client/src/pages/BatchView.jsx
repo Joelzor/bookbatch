@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Stack, Button } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
 import ReactMarkdown from "react-markdown";
@@ -12,6 +12,7 @@ const BatchView = () => {
   const { loggedInUser } = useGlobalContext();
   const [batch, setBatch] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBatch(id).then((data) => {
@@ -30,7 +31,12 @@ const BatchView = () => {
               <Button variant="outline-info">Save to favourites</Button>
               {loggedInUser && loggedInUser.id === batch.userId && (
                 <>
-                  <Button variant="outline-success">Edit batch</Button>
+                  <Button
+                    variant="outline-success"
+                    onClick={() => navigate(`/editbatch/${batch.id}`)}
+                  >
+                    Edit batch
+                  </Button>
                   <Button variant="outline-secondary">Delete batch</Button>
                 </>
               )}

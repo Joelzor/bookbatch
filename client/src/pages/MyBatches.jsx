@@ -42,7 +42,7 @@ const MyBatches = () => {
           </tr>
         </thead>
         <tbody>
-          {myBatches.map((batch) => {
+          {myBatches.map((batch, index) => {
             const { title, createdAt, published, id } = batch;
             return (
               <tr
@@ -52,6 +52,7 @@ const MyBatches = () => {
                     : "table-secondary table-row"
                 }
                 onClick={() => navigateToBatch(id)}
+                key={index}
               >
                 <td>{id}</td>
                 <td>{title}</td>

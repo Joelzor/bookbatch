@@ -14,6 +14,8 @@ const Batch = ({ handleShow }) => {
   const handleTitleModalClose = () => setShowTitleModal(false);
   const handleTitleModalShow = () => setShowTitleModal(true);
 
+  console.log(localBooks);
+
   return (
     <>
       <Card className="batch-container">
@@ -25,6 +27,26 @@ const Batch = ({ handleShow }) => {
           />
         </Card.Header>
         <Row>
+          {/* {editing === true &&
+            localBooks.map((book) => {
+              const { title, cover, id } = book;
+              return (
+                <Col key={book.id}>
+                  <Stack gap={2} className="p-2 book-container">
+                    <img
+                      src={cover || defaultImage}
+                      alt={`${title} cover`}
+                      className="book-image"
+                    />
+                    <p className="title-text">{title}</p>
+                    <ImCross
+                      className="delete-icon"
+                      onClick={() => deleteLocalBook(id)}
+                    />
+                  </Stack>
+                </Col>
+              );
+            })} */}
           {localBooks.map((book) => {
             const { title, imageLinks } = book.volumeInfo;
             return (

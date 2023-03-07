@@ -99,6 +99,25 @@ const BatchProvider = ({ children }) => {
     setLocalTitle("My batch");
   };
 
+  const setUpBatchEdit = async (batchId) => {
+    const batch = await getBatch(batchId);
+    const { title, books, post, tags } = batch;
+    setLocalTitle(title);
+    setLocalPost(post.body);
+    setLocalTags(tags);
+    const booksToEdit = [];
+
+    // necessary to fetch the full book data from google API for original create code to work
+    books.forEach(async (book) => {
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${API_KEY}`
+      );
+      const fetchedBook = await response.json();
+      booksToEdit.push(fetchedBook);
+    });
+    setLocalBooks(booksToEdit);
+  };
+
   const value = {
     searchBooks,
     localBooks,
@@ -114,6 +133,7 @@ const BatchProvider = ({ children }) => {
     getBatch,
     clearAll,
     getMyBatches,
+    setUpBatchEdit,
   };
 
   return (

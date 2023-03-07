@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<UserForm login={true} />} />
         <Route path="/register" element={<UserForm />} />
         <Route path="/newbatch" element={<CreateBatch />} />
+        <Route path="/editbatch/:id" element={<CreateBatch editing={true} />} />
         <Route path="/mybatches" element={<MyBatches />} />
         <Route path="/batches" element={<h1>Browse batches</h1>} />
         <Route path="/batches/:id" element={<BatchView />} />
