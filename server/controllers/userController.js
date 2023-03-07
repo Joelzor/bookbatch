@@ -20,12 +20,15 @@ const getUserById = async (req, res, next) => {
     },
     include: {
       batches: true,
+      profile: true,
     },
   });
 
   if (!user) {
     return next(createCustomError(`Cannot find user with ID ${id}`, 404));
   }
+
+  delete user.password;
 
   res.status(200).json(user);
 };

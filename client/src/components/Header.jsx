@@ -1,4 +1,11 @@
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown,
+  Form,
+  Button,
+} from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +34,16 @@ const Header = () => {
               )}
               {loggedInUser && (
                 <>
-                  <Nav.Link href="/batches">Search</Nav.Link>
+                  <Form className="d-flex">
+                    <Form.Control
+                      type="search"
+                      placeholder="Search batches..."
+                    />
+                    {/* <Button type="submit" variant="light" className="btn-sm">
+                      Submit
+                    </Button> */}
+                  </Form>
+                  {/* <Nav.Link href="/batches">Search</Nav.Link> */}
                   <NavDropdown title="Batches">
                     <NavDropdown.Item href="/newbatch">
                       Create a batch
