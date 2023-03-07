@@ -29,7 +29,10 @@ const BatchView = () => {
             <Stack gap={3} className="btn-container">
               <Button variant="outline-info">Save to favourites</Button>
               {loggedInUser && loggedInUser.id === batch.userId && (
-                <Button variant="outline-success">Edit batch</Button>
+                <>
+                  <Button variant="outline-success">Edit batch</Button>
+                  <Button variant="outline-secondary">Delete batch</Button>
+                </>
               )}
             </Stack>
           </Stack>
