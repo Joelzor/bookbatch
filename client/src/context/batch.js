@@ -107,6 +107,7 @@ const BatchProvider = ({ children }) => {
     setLocalTags(tags);
     const booksToEdit = [];
 
+    // console.log("checking batch", batch);
     // necessary to fetch the full book data from google API for original create code to work
     books.forEach(async (book) => {
       const response = await fetch(
@@ -115,6 +116,7 @@ const BatchProvider = ({ children }) => {
       const fetchedBook = await response.json();
       booksToEdit.push(fetchedBook);
     });
+
     setLocalBooks(booksToEdit);
   };
 

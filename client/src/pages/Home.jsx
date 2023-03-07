@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <Container className="p-4">
-      <h4 className="mt-4 text-center">WELCOME BACK</h4>
+      <h4 className="mt-4 mb-4 text-center">WELCOME BACK</h4>
       <Row>
         <Col xs={9}>
           <h5>Latest batches</h5>

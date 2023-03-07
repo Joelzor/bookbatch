@@ -37,11 +37,11 @@ const CreateBatch = ({ editing = false }) => {
   const handleSaveShow = () => setShowSaveModal(true);
 
   // editing
-  useEffect(() => {
-    if (editing) {
-      setUpBatchEdit(id);
-    }
-  }, [editing, id]);
+  // useEffect(() => {
+  //   if (editing) {
+  //     setUpBatchEdit(id);
+  //   }
+  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,7 +95,7 @@ const CreateBatch = ({ editing = false }) => {
   return (
     <>
       {loggedInUser && (
-        <Container className="p-2">
+        <Container className="p-4">
           <h4 className="mt-4 mb-4">
             Hello {loggedInUser.username}. {editing ? "Edit" : "Create"} your
             batch below!
@@ -103,7 +103,7 @@ const CreateBatch = ({ editing = false }) => {
           <h5>Books</h5>
           <p>Click on the + icon to find a book!</p>
           <Stack direction="horizontal" gap={4}>
-            <Batch handleShow={handleShow} />
+            <Batch handleShow={handleShow} localBooks={localBooks} />
             <Stack gap={3}>
               <Button variant="success" onClick={checkBatchStatus}>
                 Publish

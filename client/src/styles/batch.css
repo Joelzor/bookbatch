@@ -1,12 +1,16 @@
 .batch-container {
   width: 80%;
   padding: 10px;
+  background-color: #eee;
 }
 
 .batch-header {
   display: flex;
   justify-content: space-between;
   height: 40px;
+  background-color: #78c2ad;
+  color: #fff;
+  font-weight: 600;
 }
 
 .batch-column {
@@ -19,7 +23,7 @@
 .edit-batch-title-btn {
   cursor: pointer;
   font-size: 24px;
-  color: #78c2ad;
+  color: #fff;
   transition: all 0.5s;
 }
 
