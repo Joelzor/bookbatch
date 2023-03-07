@@ -26,13 +26,17 @@ const BatchProvider = ({ children }) => {
   }, []);
 
   const searchBooks = async (query) => {
-    const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}`
-    );
+    try {
+      const res = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}`
+      );
 
-    const { items } = await res.json();
+      const { items } = await res.json();
 
-    return items;
+      return items;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const deleteLocalBook = (id) => {

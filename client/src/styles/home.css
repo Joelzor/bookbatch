@@ -16,20 +16,10 @@
   width: 200px;
 }
 
-.hero-text-container {
-  background-color: #78c2ad;
-  border-radius: 12px;
-}
-
 .hero-title {
+  font-size: 72px;
   padding: 12px;
   color: #fff;
-}
-
-.hero-text {
-  font-style: italic;
-  color: #fff;
-  text-align: center;
 }
 
 /* logged in homepage */
