@@ -2,13 +2,18 @@ import CreatableSelect from "react-select/creatable";
 import { Stack, Badge } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
 import tagOptions from "../data/tag-options";
+import { AiFillTags } from "react-icons/ai";
+import "../styles/batch.css";
 
 const CreateTags = () => {
   const { localTags, setLocalTags } = useBatchContext();
 
   return (
     <Stack className="mt-4" style={{ width: "80%" }}>
-      <h5>Tags</h5>
+      <h5 className="create-heading">
+        Tags
+        <AiFillTags className="create-icon" />
+      </h5>
       <p>
         Mix and match tags- select default or start typing to create your own
       </p>

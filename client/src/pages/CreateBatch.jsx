@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalContext } from "../context/auth";
 import { useBatchContext } from "../context/batch";
 import "../styles/batch.css";
+import { ImBooks } from "react-icons/im";
 import { Container, Modal, Button, Form, Stack } from "react-bootstrap";
 import Batch from "../components/Batch";
 import BookResult from "../components/BookResult";
@@ -100,7 +101,10 @@ const CreateBatch = ({ editing = false }) => {
             Hello {loggedInUser.username}. {editing ? "Edit" : "Create"} your
             batch below!
           </h4>
-          <h5>Books</h5>
+          <h5 className="create-heading">
+            Books
+            <ImBooks className="create-icon" />
+          </h5>
           <p>Click on the + icon to find a book!</p>
           <Stack direction="horizontal" gap={4}>
             <Batch handleShow={handleShow} />

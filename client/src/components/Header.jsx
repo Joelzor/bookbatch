@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
+import { TbBook } from "react-icons/tb";
 import { useGlobalContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +27,18 @@ const Header = () => {
     <header>
       <Navbar variant="dark" bg="primary" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand href="/">BOOKBATCH</Navbar.Brand>
+          <Navbar.Brand
+            href="/"
+            style={{
+              display: "flex",
+              gap: "16px",
+              alignItems: "center",
+              fontSize: "24px",
+            }}
+          >
+            BOOKBATCH
+            <TbBook />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
             <Nav className="ms-auto">

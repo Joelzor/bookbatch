@@ -81,3 +81,14 @@
 .delete-icon:hover {
   color: #ff8787;
 }
+
+.create-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.create-icon {
+  color: #5ca6b5;
+  font-size: 24px;
+}
