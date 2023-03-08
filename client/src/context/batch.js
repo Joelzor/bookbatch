@@ -40,7 +40,7 @@ const BatchProvider = ({ children }) => {
     });
   };
 
-  const createBatch = async (publish = true) => {
+  const createBatch = async (publish = true, update = false, batchId) => {
     const curatedBooks = localBooks.map((book) => {
       const { title, authors, imageLinks, publishedDate, pageCount } =
         book.volumeInfo;
@@ -65,6 +65,20 @@ const BatchProvider = ({ children }) => {
     };
 
     const token = localStorage.getItem("access-token");
+    // console.log("SAVING:", publish, update, batchId);
+    if (update && batchId) {
+      const res = await fetch(`${baseUrl}/batches/${batchId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(batch),
+      });
+
+      const updatedBatch = await res.json();
+      return updatedBatch;
+    }
 
     const res = await fetch(`${baseUrl}/batches`, {
       method: "POST",

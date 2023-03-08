@@ -53,11 +53,19 @@ const CreateBatch = ({ editing = false }) => {
 
   const publish = async () => {
     setErrorResponse(false);
+    if (editing) {
+      createBatch(true, true, id);
+      return navigate("/");
+    }
     const newBatch = await createBatch();
     navigate(`/batches/${newBatch.id}`);
   };
 
-  const save = () => {
+  const save = async () => {
+    if (editing) {
+      createBatch(false, true, id);
+      return navigate("/");
+    }
     createBatch(false);
     navigate("/");
   };

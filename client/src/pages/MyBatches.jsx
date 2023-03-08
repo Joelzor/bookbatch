@@ -10,7 +10,9 @@ const MyBatches = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMyBatches().then((data) => setMyBatches(data));
+    getMyBatches()
+      .then((data) => setMyBatches(data))
+      .catch((err) => console.error(err));
   }, [getMyBatches]);
 
   const createFirstBatch = () => navigate("/newbatch");

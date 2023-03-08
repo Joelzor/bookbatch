@@ -9,10 +9,10 @@ const tagsControl = (tags) => {
     tags.forEach((tag) => {
       tagArr.push({
         where: {
-          title: tag.label,
+          title: tag.label || tag.title,
         },
         create: {
-          title: tag.label,
+          title: tag.label || tag.title,
         },
       });
     });
@@ -217,6 +217,7 @@ const updateBatch = async (req, res, next) => {
 
   const tagArr = tagsControl(tags);
   const bookArr = booksControl(books);
+  4;
 
   const updatedBatch = await prisma.batch.update({
     where: {
