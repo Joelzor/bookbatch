@@ -42,7 +42,7 @@ const CreateBatch = ({ editing = false }) => {
     if (editing) {
       setUpBatchEdit(id);
     }
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

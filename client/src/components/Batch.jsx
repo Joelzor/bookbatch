@@ -14,13 +14,6 @@ const Batch = ({ handleShow }) => {
   const handleTitleModalClose = () => setShowTitleModal(false);
   const handleTitleModalShow = () => setShowTitleModal(true);
 
-  // console.log("rendering local books,:", localBooks);
-  // useEffect(() => {
-  //   if (localBooks.find((book) => book.fromDB === true)) {
-  //     console.log("found books coming from DB");
-  //   }
-  // }, []);
-
   return (
     <>
       <Card className="batch-container">

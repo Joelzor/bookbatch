@@ -70,7 +70,7 @@ const getAllBatches = async (req, res) => {
 const getBatchById = async (req, res, next) => {
   const id = Number(req.params.id);
 
-  const batch = await getBatchById2(id);
+  const batch = await getBatchData(id);
 
   if (!batch) {
     return next(createCustomError(`Cannot find batch with ID ${id}`, 404));
@@ -91,7 +91,7 @@ const getBatchById = async (req, res, next) => {
   res.status(200).json(batch);
 };
 
-const getBatchById2 = async (id) => {
+const getBatchData = async (id) => {
   const batch = await prisma.batch.findUnique({
     where: {
       id,
