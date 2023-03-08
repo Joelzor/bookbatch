@@ -11,8 +11,8 @@ const CreateTags = () => {
   return (
     <Stack className="mt-4" style={{ width: "80%" }}>
       <h5 className="create-heading">
-        Tags
         <AiFillTags className="create-icon" />
+        Tags
       </h5>
       <p>
         Mix and match tags- select default or start typing to create your own

@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const cacheService = require("express-api-cache");
+const cache = cacheService.cache;
 const {
   getAllBatches,
   createBatch,
@@ -13,7 +15,7 @@ const { authenticate } = require("../middleware/auth");
 router.route("/").get(getAllBatches).post(authenticate, createBatch);
 router
   .route("/:id")
-  .get(getBatchById)
+  .get(cache("10 minutes"), getBatchById)
   .delete(authenticate, deleteBatch)
   .patch(authenticate, updateBatch);
 router.route("/user/:id").get(getBatchesByUser);

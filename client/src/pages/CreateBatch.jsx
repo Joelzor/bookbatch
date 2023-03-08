@@ -102,8 +102,8 @@ const CreateBatch = ({ editing = false }) => {
             batch below!
           </h4>
           <h5 className="create-heading">
-            Books
             <ImBooks className="create-icon" />
+            Books
           </h5>
           <p>Click on the + icon to find a book!</p>
           <Stack direction="horizontal" gap={4}>

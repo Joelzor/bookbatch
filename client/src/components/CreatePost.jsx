@@ -9,7 +9,8 @@ const CreatePost = () => {
   return (
     <Stack className="mt-4">
       <h5 className="create-heading">
-        Post <AiFillFileText className="create-icon" />
+        <AiFillFileText className="create-icon" />
+        Post
       </h5>
       <p>
         Explain the connection between your chosen books (supports markdown)

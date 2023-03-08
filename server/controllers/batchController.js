@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { createCustomError } = require("../errors/custom-error");
+const axios = require("axios");
 
 const tagsControl = (tags) => {
   const tagArr = [];
@@ -69,6 +70,28 @@ const getAllBatches = async (req, res) => {
 const getBatchById = async (req, res, next) => {
   const id = Number(req.params.id);
 
+  const batch = await getBatchById2(id);
+
+  if (!batch) {
+    return next(createCustomError(`Cannot find batch with ID ${id}`, 404));
+  }
+
+  const newBooksPromise = batch.books.map(async (book) => {
+    const fetchedBook = await axios(
+      `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${process.env.API_KEY}`
+    );
+    book.googleData = fetchedBook.data;
+    return book;
+  });
+
+  const newBooks = await Promise.all(newBooksPromise);
+
+  batch.books = newBooks;
+
+  res.status(200).json(batch);
+};
+
+const getBatchById2 = async (id) => {
   const batch = await prisma.batch.findUnique({
     where: {
       id,
@@ -86,12 +109,12 @@ const getBatchById = async (req, res, next) => {
   });
 
   if (!batch) {
-    return next(createCustomError(`There is no batch with id ${id}`, 404));
+    return null;
   }
 
   delete batch.user.password;
 
-  res.status(200).json(batch);
+  return batch;
 };
 
 const getBatchesByUser = async (req, res, next) => {
