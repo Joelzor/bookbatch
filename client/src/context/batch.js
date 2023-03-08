@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { useGlobalContext } from "./auth";
 
 const BatchContext = createContext();
@@ -99,12 +99,15 @@ const BatchProvider = ({ children }) => {
   };
 
   const setUpBatchEdit = async (batchId) => {
-    const batch = await getBatch(batchId);
-    const { title, books, post, tags } = batch;
-    setLocalTitle(title);
-    setLocalPost(post.body);
-    setLocalTags(tags);
+    // const batch = await getBatch(batchId);
+    // const { title, books, post, tags } = batch;
+    // setLocalTitle(title);
+    // setLocalPost(post.body);
+    // setLocalTags(tags);
+    // setLocalBooks([...books, { fromDB: true }]);
     // const booksToEdit = [];
+
+    console.log("set up batch edit function");
 
     // console.log("checking batch", batch);
     // necessary to fetch the full book data from google API for original create code to work
@@ -115,8 +118,20 @@ const BatchProvider = ({ children }) => {
     //   const fetchedBook = await response.json();
     //   booksToEdit.push(fetchedBook);
     // });
+  };
 
-    setLocalBooks(books);
+  const deleteBatch = async (batchId) => {
+    const token = localStorage.getItem("access-token");
+
+    const res = await fetch(`${baseUrl}/batches/${batchId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+
+    return data;
   };
 
   const value = {
@@ -135,6 +150,7 @@ const BatchProvider = ({ children }) => {
     clearAll,
     getMyBatches,
     setUpBatchEdit,
+    deleteBatch,
   };
 
   return (

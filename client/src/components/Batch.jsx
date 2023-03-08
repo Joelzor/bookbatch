@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/batch.css";
 import { AiFillPlusCircle, AiFillEdit } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
@@ -6,20 +6,20 @@ import { Card, Stack, Row, Col, Modal, Button, Form } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
 import defaultImage from "../images/notfound.png";
 
-const Batch = ({ handleShow, localBooks }) => {
-  const { deleteLocalBook, localTitle, setLocalTitle } = useBatchContext();
+const Batch = ({ handleShow }) => {
+  const { deleteLocalBook, localTitle, setLocalTitle, localBooks } =
+    useBatchContext();
   const [showTitleModal, setShowTitleModal] = useState(false);
-  // const [render, setRender] = useState(false);
 
   const handleTitleModalClose = () => setShowTitleModal(false);
   const handleTitleModalShow = () => setShowTitleModal(true);
 
   // console.log("rendering local books,:", localBooks);
   // useEffect(() => {
-  //   if (localBooks > 0) {
-  //     setRender(true);
+  //   if (localBooks.find((book) => book.fromDB === true)) {
+  //     console.log("found books coming from DB");
   //   }
-  // }, [localBooks]);
+  // }, []);
 
   return (
     <>
@@ -33,8 +33,8 @@ const Batch = ({ handleShow, localBooks }) => {
         </Card.Header>
         <Row>
           {localBooks.map((book) => {
+            console.log(book);
             const { title, imageLinks } = book.volumeInfo;
-            console.log("hello");
             return (
               <Col key={book.id}>
                 <Stack gap={2} className="p-2 book-container">
@@ -52,6 +52,7 @@ const Batch = ({ handleShow, localBooks }) => {
               </Col>
             );
           })}
+
           <Col>
             {localBooks.length < 6 && (
               <Stack className="batch-column">

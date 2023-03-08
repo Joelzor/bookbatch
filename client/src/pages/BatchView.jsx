@@ -8,7 +8,7 @@ import { useGlobalContext } from "../context/auth";
 import "../styles/batchView.css";
 
 const BatchView = () => {
-  const { getBatch } = useBatchContext();
+  const { getBatch, deleteBatch } = useBatchContext();
   const { loggedInUser } = useGlobalContext();
   const [batch, setBatch] = useState(null);
   const { id } = useParams();
@@ -20,6 +20,11 @@ const BatchView = () => {
       setBatch(data);
     });
   }, [getBatch, id]);
+
+  const onDelete = (id) => {
+    deleteBatch(id);
+    navigate("/");
+  };
 
   return (
     <Container>
@@ -37,7 +42,12 @@ const BatchView = () => {
                   >
                     Edit batch
                   </Button>
-                  <Button variant="outline-secondary">Delete batch</Button>
+                  <Button
+                    variant="outline-secondary"
+                    onClick={() => onDelete(batch.id)}
+                  >
+                    Delete batch
+                  </Button>
                 </>
               )}
             </Stack>

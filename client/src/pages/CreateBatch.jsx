@@ -37,11 +37,11 @@ const CreateBatch = ({ editing = false }) => {
   const handleSaveShow = () => setShowSaveModal(true);
 
   // editing
-  // useEffect(() => {
-  //   if (editing) {
-  //     setUpBatchEdit(id);
-  //   }
-  // });
+  useEffect(() => {
+    if (editing) {
+      setUpBatchEdit(id);
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ const CreateBatch = ({ editing = false }) => {
           <h5>Books</h5>
           <p>Click on the + icon to find a book!</p>
           <Stack direction="horizontal" gap={4}>
-            <Batch handleShow={handleShow} localBooks={localBooks} />
+            <Batch handleShow={handleShow} />
             <Stack gap={3}>
               <Button variant="success" onClick={checkBatchStatus}>
                 Publish
