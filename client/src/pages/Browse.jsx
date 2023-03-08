@@ -65,7 +65,28 @@ const Browse = () => {
             })}
           </Stack>
         </Col>
-        <Col></Col>
+        <Col>
+          <Stack className="tag-container">
+            <h4 className="tag-title">Tags</h4>
+            <ul className="tag-list">
+              <li>
+                <Form.Check type="checkbox" label="crime" />
+              </li>
+              <li>
+                <Form.Check type="checkbox" label="fantasy" />
+              </li>
+              <li>
+                <Form.Check type="checkbox" label="sci-fi" />
+              </li>
+              <li>
+                <Form.Check type="checkbox" label="history" />
+              </li>
+              <li>
+                <Form.Check type="checkbox" label="philosophy" />
+              </li>
+            </ul>
+          </Stack>
+        </Col>
       </Row>
     </Container>
   );

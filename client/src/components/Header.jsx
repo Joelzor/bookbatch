@@ -1,11 +1,4 @@
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +36,7 @@ const Header = () => {
                       Submit
                     </Button> */}
                   </Form>
-                  {/* <Nav.Link href="/batches">Search</Nav.Link> */}
+                  <Nav.Link href="/batches">Browse</Nav.Link>
                   <NavDropdown title="Batches">
                     <NavDropdown.Item href="/newbatch">
                       Create a batch
