@@ -1,0 +1,11 @@
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-heading {
+  margin-top: 24px;
+  padding: 10px;
+  border-bottom: black 1px solid;
+}
