@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
 import { useBatchContext } from "../context/batch";
@@ -11,10 +11,18 @@ const Browse = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [batches, setBatches] = useState([]);
   const [results, setResults] = useState([]);
+  const searchParams = useSearchParams()[0];
 
   useEffect(() => {
     getAllBatches().then((data) => setBatches(data));
   }, [getAllBatches]);
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+    if (query) {
+      setSearchQuery(query);
+    }
+  }, [searchParams]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,15 +60,11 @@ const Browse = () => {
               "You search returned 0 results. Please try again!"}
             {results.map((result) => {
               return (
-                <>
-                  <Link
-                    to={`/batches/${result.id}`}
-                    className="batch-link"
-                    key={result.id}
-                  >
+                <div key={result.id}>
+                  <Link to={`/batches/${result.id}`} className="batch-link">
                     <PublishedBatch batch={result} small={true} />
                   </Link>
-                </>
+                </div>
               );
             })}
           </Stack>

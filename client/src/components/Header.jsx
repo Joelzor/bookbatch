@@ -1,14 +1,25 @@
+import { useState } from "react";
 import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { loggedInUser, logout } = useGlobalContext();
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const userLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!query) return;
+
+    const params = new URLSearchParams({ query });
+    navigate({ pathname: "/batches", search: params.toString() });
   };
 
   return (
@@ -27,14 +38,13 @@ const Header = () => {
               )}
               {loggedInUser && (
                 <>
-                  <Form className="d-flex">
+                  <Form className="d-flex" onSubmit={handleSubmit}>
                     <Form.Control
                       type="search"
+                      value={query}
                       placeholder="Search batches..."
+                      onChange={(e) => setQuery(e.target.value)}
                     />
-                    {/* <Button type="submit" variant="light" className="btn-sm">
-                      Submit
-                    </Button> */}
                   </Form>
                   <Nav.Link href="/batches">Browse</Nav.Link>
                   <NavDropdown title="Batches">
