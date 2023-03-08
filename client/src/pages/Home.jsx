@@ -6,13 +6,20 @@ import { useEffect, useState } from "react";
 import "../styles/home.css";
 
 const Home = () => {
-  const { batches } = useBatchContext();
+  const { getAllBatches } = useBatchContext();
+  const [batches, setBatches] = useState([]);
   const [lastBatch, setLastBatch] = useState(null);
   const [secondLastBatch, setSecondLastBatch] = useState(null);
 
   useEffect(() => {
-    setLastBatch(batches[batches.length - 1]);
-    setSecondLastBatch(batches[batches.length - 2]);
+    getAllBatches().then((data) => setBatches(data));
+  }, [getAllBatches]);
+
+  useEffect(() => {
+    if (batches) {
+      setLastBatch(batches[batches.length - 1]);
+      setSecondLastBatch(batches[batches.length - 2]);
+    }
   }, [batches]);
 
   return (

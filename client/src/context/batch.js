@@ -7,7 +7,6 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const BatchProvider = ({ children }) => {
-  const [batches, setBatches] = useState([]);
   const [localBooks, setLocalBooks] = useState([]);
   const [localTags, setLocalTags] = useState([]);
   const [localPost, setLocalPost] = useState("");
@@ -18,12 +17,8 @@ const BatchProvider = ({ children }) => {
     const res = await fetch(`${baseUrl}/batches?published=true`);
     const data = await res.json();
 
-    setBatches(data);
+    return data;
   };
-
-  useEffect(() => {
-    getAllBatches();
-  }, []);
 
   const searchBooks = async (query) => {
     try {
@@ -109,19 +104,19 @@ const BatchProvider = ({ children }) => {
     setLocalTitle(title);
     setLocalPost(post.body);
     setLocalTags(tags);
-    const booksToEdit = [];
+    // const booksToEdit = [];
 
     // console.log("checking batch", batch);
     // necessary to fetch the full book data from google API for original create code to work
-    books.forEach(async (book) => {
-      const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${API_KEY}`
-      );
-      const fetchedBook = await response.json();
-      booksToEdit.push(fetchedBook);
-    });
+    // books.forEach(async (book) => {
+    //   const response = await fetch(
+    //     `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${API_KEY}`
+    //   );
+    //   const fetchedBook = await response.json();
+    //   booksToEdit.push(fetchedBook);
+    // });
 
-    setLocalBooks(booksToEdit);
+    setLocalBooks(books);
   };
 
   const value = {
@@ -135,7 +130,7 @@ const BatchProvider = ({ children }) => {
     localTitle,
     setLocalTitle,
     createBatch,
-    batches,
+    getAllBatches,
     getBatch,
     clearAll,
     getMyBatches,
