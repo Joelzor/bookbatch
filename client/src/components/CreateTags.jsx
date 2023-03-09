@@ -8,8 +8,6 @@ import "../styles/batch.css";
 const CreateTags = ({ editing = false }) => {
   const { localTags, setLocalTags } = useBatchContext();
 
-  console.log(localTags);
-
   return (
     <Stack className="mt-4" style={{ width: "80%" }}>
       <h5 className="create-heading">
@@ -19,28 +17,45 @@ const CreateTags = ({ editing = false }) => {
       <p>
         Mix and match tags- select default or start typing to create your own
       </p>
-      <CreatableSelect
-        isMulti
-        value={
-          editing &&
-          localTags.map((tag) => {
-            return {
-              label: tag.title || tag.label,
-              value: tag.title || tag.label,
-            };
-          })
-        }
-        options={tagOptions.map((tag) => {
-          return { label: tag.title, value: tag.title };
-        })}
-        onChange={(tags) => {
-          setLocalTags(
-            tags.map((tag) => {
-              return { label: tag.label };
+      {!editing && (
+        <CreatableSelect
+          isMulti
+          options={tagOptions.map((tag) => {
+            return { label: tag.title, value: tag.title };
+          })}
+          onChange={(tags) => {
+            setLocalTags(
+              tags.map((tag) => {
+                return { label: tag.label };
+              })
+            );
+          }}
+        />
+      )}
+      {editing && (
+        <CreatableSelect
+          isMulti
+          value={
+            editing &&
+            localTags.map((tag) => {
+              return {
+                label: tag.title || tag.label,
+                value: tag.title || tag.label,
+              };
             })
-          );
-        }}
-      />
+          }
+          options={tagOptions.map((tag) => {
+            return { label: tag.title, value: tag.title };
+          })}
+          onChange={(tags) => {
+            setLocalTags(
+              tags.map((tag) => {
+                return { label: tag.label };
+              })
+            );
+          }}
+        />
+      )}
       <Stack direction="horizontal" gap={2} className="mt-3">
         {localTags.map((tag, index) => {
           return (

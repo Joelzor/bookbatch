@@ -65,7 +65,6 @@ const BatchProvider = ({ children }) => {
     };
 
     const token = localStorage.getItem("access-token");
-    // console.log("SAVING:", publish, update, batchId);
     if (update && batchId) {
       const res = await fetch(`${baseUrl}/batches/${batchId}`, {
         method: "PATCH",
