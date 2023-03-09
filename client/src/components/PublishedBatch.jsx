@@ -1,5 +1,6 @@
 import { Card, Row, Col, Stack, Badge } from "react-bootstrap";
 import "../styles/batchView.css";
+import colourGenerator from "../utils/tagColourGenerator";
 
 const PublishedBatch = ({ batch, small = false }) => {
   return (
@@ -29,7 +30,7 @@ const PublishedBatch = ({ batch, small = false }) => {
         <Stack direction="horizontal" gap={2} className="mt-2">
           {batch.tags.map((tag) => {
             return (
-              <Badge key={tag.id} bg="primary">
+              <Badge key={tag.id} bg={colourGenerator()}>
                 {tag.title}
               </Badge>
             );
