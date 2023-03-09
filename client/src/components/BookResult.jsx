@@ -8,6 +8,8 @@ const BookResult = ({ bookInfo, handleClose }) => {
   const { title, authors, description, imageLinks } = bookInfo.volumeInfo;
 
   const addToBatch = (bookInfo) => {
+    const alreadyAdded = localBooks.find((book) => book.id === bookInfo.id);
+    if (alreadyAdded) return;
     setLocalBooks([...localBooks, bookInfo]);
     handleClose();
   };
@@ -17,8 +19,9 @@ const BookResult = ({ bookInfo, handleClose }) => {
       <img
         src={imageLinks?.smallThumbnail || defaultImage}
         alt={`${title} cover`}
+        className="result-image"
       />
-      <div>
+      <div className="text-container">
         <p className="bold">{title}</p>
         <p>
           {authors &&

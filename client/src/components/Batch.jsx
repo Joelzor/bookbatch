@@ -26,7 +26,6 @@ const Batch = ({ handleShow }) => {
         </Card.Header>
         <Row>
           {localBooks.map((book) => {
-            console.log(book);
             const { title, imageLinks } = book.volumeInfo;
             return (
               <Col key={book.id}>

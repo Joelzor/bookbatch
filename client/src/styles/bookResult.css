@@ -1,9 +1,12 @@
 .result {
-  justify-content: center;
-  align-items: start;
+  align-items: center;
   border: 0.5px solid #ccc;
   border-radius: 12px;
   padding: 8px;
+}
+
+.text-container {
+  width: 100%;
 }
 
 .bold {
@@ -12,4 +15,9 @@
 
 .add-btn {
   align-self: center;
+}
+
+.result-image {
+  height: 194px;
+  width: 128px;
 }
