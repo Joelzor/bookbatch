@@ -12,6 +12,7 @@ import { useGlobalContext } from "./context/auth";
 
 const App = () => {
   const { loggedInUser } = useGlobalContext();
+  // const [loading, setLoading] = useState(false);
 
   return (
     <>

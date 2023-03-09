@@ -32,7 +32,7 @@ const Home = () => {
         <Col xs={9}>
           <h5>Latest batches</h5>
           <Stack>
-            {lastBatch && secondLastBatch && (
+            {lastBatch && secondLastBatch && thirdLastBatch && (
               <>
                 <Link to={`/batches/${lastBatch.id}`} className="batch-link">
                   <PublishedBatch batch={lastBatch} small={true} />

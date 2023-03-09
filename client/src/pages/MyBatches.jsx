@@ -45,7 +45,7 @@ const MyBatches = () => {
           </Button>
         </Stack>
       )}
-      {myBatches && (
+      {myBatches.length > 0 && (
         <>
           <Table striped bordered hover>
             <thead>
