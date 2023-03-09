@@ -4,12 +4,14 @@ import { useBatchContext } from "../context/batch";
 import PublishedBatch from "../components/PublishedBatch";
 import { useEffect, useState } from "react";
 import "../styles/home.css";
+import openShop from "../images/open-shop.jpg";
 
 const Home = () => {
   const { getAllBatches } = useBatchContext();
   const [batches, setBatches] = useState([]);
   const [lastBatch, setLastBatch] = useState(null);
   const [secondLastBatch, setSecondLastBatch] = useState(null);
+  const [thirdLastBatch, setThirdLastBatch] = useState(null);
 
   useEffect(() => {
     getAllBatches().then((data) => setBatches(data));
@@ -19,6 +21,7 @@ const Home = () => {
     if (batches) {
       setLastBatch(batches[batches.length - 1]);
       setSecondLastBatch(batches[batches.length - 2]);
+      setThirdLastBatch(batches[batches.length - 3]);
     }
   }, [batches]);
 
@@ -40,19 +43,27 @@ const Home = () => {
                 >
                   <PublishedBatch batch={secondLastBatch} small={true} />
                 </Link>
+                <Link
+                  to={`/batches/${thirdLastBatch.id}`}
+                  className="batch-link"
+                >
+                  <PublishedBatch batch={thirdLastBatch} small={true} />
+                </Link>
               </>
             )}
           </Stack>
         </Col>
         <Col>
           <Stack className="newsfeed-container">
-            <h5>Latest news</h5>
-            <p>
+            <h5 className="newsfeed-title">Latest news</h5>
+            <p className="newsfeed-subheading">Bookbatch launch!</p>
+            <p className="newsfeed-text">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero
               totam adipisci, nam maiores accusamus repudiandae rerum quos odio
               rem commodi debitis quod necessitatibus illum eius. Nostrum
               cupiditate mollitia non qui.
             </p>
+            <img src={openShop} alt="shop opening" className="newsfeed-image" />
           </Stack>
         </Col>
       </Row>

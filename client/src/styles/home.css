@@ -36,6 +36,26 @@
 .newsfeed-container {
   padding: 20px;
   border-radius: 12px;
-  height: 100%;
-  background-color: #eee;
+  height: 50%;
+  /* background-color: #eee; */
+  background-color: #f2f9f7;
+}
+
+.newsfeed-title {
+  border-bottom: 1px solid black;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.newsfeed-subheading {
+  font-weight: bold;
+}
+
+.newsfeed-text {
+  font-size: 14px;
+}
+
+.newsfeed-image {
+  width: 260px;
+  height: auto;
 }
