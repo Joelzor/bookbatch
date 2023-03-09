@@ -3,20 +3,32 @@ import { Container, Button, Stack, Table } from "react-bootstrap";
 import { useBatchContext } from "../context/batch";
 import { useNavigate } from "react-router-dom";
 import "../styles/myBatches.css";
+import Loading from "../components/Loading";
 
 const MyBatches = () => {
   const { getMyBatches } = useBatchContext();
   const [myBatches, setMyBatches] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     getMyBatches()
-      .then((data) => setMyBatches(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        setMyBatches(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.error(err);
+      });
   }, [getMyBatches]);
 
   const createFirstBatch = () => navigate("/newbatch");
   const navigateToBatch = (id) => navigate(`/batches/${id}`);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>
@@ -33,39 +45,43 @@ const MyBatches = () => {
           </Button>
         </Stack>
       )}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Batch id</th>
-            <th>Title</th>
-            <th>Created</th>
-            <th>Published</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myBatches.map((batch, index) => {
-            const { title, createdAt, published, id } = batch;
-            return (
-              <tr
-                className={
-                  published === true
-                    ? "table-light table-row"
-                    : "table-secondary table-row"
-                }
-                onClick={() => navigateToBatch(id)}
-                key={index}
-              >
-                <td>{id}</td>
-                <td>{title}</td>
-                <td>{new Date(createdAt).toLocaleDateString()}</td>
-                <td>{published === true ? "Yes" : "No"}</td>
-                <td>{published === true ? "Delete" : "Delete, Edit"}</td>
+      {myBatches && (
+        <>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Batch id</th>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Published</th>
+                <th>Actions</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            </thead>
+            <tbody>
+              {myBatches.map((batch, index) => {
+                const { title, createdAt, published, id } = batch;
+                return (
+                  <tr
+                    className={
+                      published === true
+                        ? "table-light table-row"
+                        : "table-secondary table-row"
+                    }
+                    onClick={() => navigateToBatch(id)}
+                    key={index}
+                  >
+                    <td>{id}</td>
+                    <td>{title}</td>
+                    <td>{new Date(createdAt).toLocaleDateString()}</td>
+                    <td>{published === true ? "Yes" : "No"}</td>
+                    <td>{published === true ? "Delete" : "Delete, Edit"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </>
+      )}
     </Container>
   );
 };
