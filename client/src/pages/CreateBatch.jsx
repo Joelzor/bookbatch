@@ -137,7 +137,7 @@ const CreateBatch = ({ editing = false }) => {
               )}
             </Stack>
           </Stack>
-          <CreateTags />
+          <CreateTags editing={editing} />
           <CreatePost />
 
           {/* search modal */}

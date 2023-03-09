@@ -143,6 +143,7 @@ const BatchProvider = ({ children }) => {
     deleteLocalBook,
     localTags,
     setLocalTags,
+    localPost,
     setLocalPost,
     localTitle,
     setLocalTitle,

@@ -5,8 +5,10 @@ import tagOptions from "../data/tag-options";
 import { AiFillTags } from "react-icons/ai";
 import "../styles/batch.css";
 
-const CreateTags = () => {
+const CreateTags = ({ editing = false }) => {
   const { localTags, setLocalTags } = useBatchContext();
+
+  console.log(localTags);
 
   return (
     <Stack className="mt-4" style={{ width: "80%" }}>
@@ -19,6 +21,15 @@ const CreateTags = () => {
       </p>
       <CreatableSelect
         isMulti
+        value={
+          editing &&
+          localTags.map((tag) => {
+            return {
+              label: tag.title || tag.label,
+              value: tag.title || tag.label,
+            };
+          })
+        }
         options={tagOptions.map((tag) => {
           return { label: tag.title, value: tag.title };
         })}
