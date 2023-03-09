@@ -219,6 +219,28 @@ const updateBatch = async (req, res, next) => {
   const bookArr = booksControl(books);
   4;
 
+  await prisma.batch.update({
+    where: {
+      id,
+    },
+    data: {
+      tags: {
+        deleteMany: {},
+      },
+    },
+  });
+
+  await prisma.batch.update({
+    where: {
+      id,
+    },
+    data: {
+      books: {
+        deleteMany: {},
+      },
+    },
+  });
+
   const updatedBatch = await prisma.batch.update({
     where: {
       id,
