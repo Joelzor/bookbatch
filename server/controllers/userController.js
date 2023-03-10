@@ -70,4 +70,26 @@ const createUser = async (req, res, next) => {
   });
 };
 
-module.exports = { getAllUsers, getUserById, createUser };
+const deleteUser = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!user) {
+    return next(createCustomError(`Cannot find user with ID ${id}`, 404));
+  }
+
+  await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
+
+  res.status(200).json({ status: "success" });
+};
+
+module.exports = { getAllUsers, getUserById, createUser, deleteUser };
