@@ -3,6 +3,7 @@ import { Button, Form, Row, Stack, Container } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
+import bookStack from "../images/book-stack.jpg";
 
 const UserForm = ({ login = false }) => {
   const { register, userLogin } = useGlobalContext();
@@ -155,6 +156,13 @@ const UserForm = ({ login = false }) => {
           <Notification message={errorResponse} type="secondary" />
           {removeAlert()}
         </>
+      )}
+      {login && (
+        <img
+          src={bookStack}
+          alt="stack of books artwork"
+          style={{ height: "150px", width: "auto", marginTop: "40px" }}
+        />
       )}
     </Container>
   );
