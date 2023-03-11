@@ -20,6 +20,7 @@ const CreateBatch = ({ editing = false }) => {
     localTags,
     clearAll,
     setUpBatchEdit,
+    localPost,
   } = useBatchContext();
   const [showBookModal, setShowBookModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
@@ -80,16 +81,12 @@ const CreateBatch = ({ editing = false }) => {
   };
 
   const warningGenerator = () => {
-    // if (localTags.length === 0 && !localPost) {
-    //   return "You have no tags or post! Are you sure you want to publish?";
-    // } else if (localTags.length === 0) {
-    //   return "You don't have any tags! Are you sure you want to publish?";
-    // } else if (!localPost) {
-    //   return "You haven't written a post! Are you sure you want to publish?";
-    // }
-
-    if (localTags.length === 0) {
+    if (localTags.length === 0 && !localPost) {
+      return "You have no tags or post! Are you sure you want to publish?";
+    } else if (localTags.length === 0) {
       return "You don't have any tags! Are you sure you want to publish?";
+    } else if (!localPost) {
+      return "You haven't written a post! Are you sure you want to publish?";
     }
 
     return "Are you sure you want to publish your batch?";
