@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { createCustomError } = require("../errors/custom-error");
 
 const saltRounds = 10;
@@ -92,4 +91,66 @@ const deleteUser = async (req, res, next) => {
   res.status(200).json({ status: "success" });
 };
 
-module.exports = { getAllUsers, getUserById, createUser, deleteUser };
+const updateUserProfile = async (req, res, next) => {
+  const id = Number(req.params.id);
+  const { firstName, lastName, bio, profileImg } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      profile: true,
+    },
+  });
+
+  if (!user) {
+    return next(createCustomError(`Cannot find user with ID ${id}`, 404));
+  }
+
+  if (!user.profile) {
+    const updatedUser = await prisma.profile.create({
+      data: {
+        firstName,
+        lastName,
+        bio,
+        profileImg,
+        user: {
+          connect: {
+            id,
+          },
+        },
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return res.status(201).json(updatedUser);
+  }
+
+  const updatedUser = await prisma.profile.update({
+    where: {
+      id: user.profile.id,
+    },
+    data: {
+      firstName,
+      lastName,
+      bio,
+      profileImg,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  res.status(200).json(updatedUser);
+};
+
+module.exports = {
+  getAllUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+  updateUserProfile,
+};
