@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Stack, Badge } from "react-bootstrap";
 import "../styles/batchView.css";
-import colourGenerator from "../utils/tagColourGenerator";
+// import colourGenerator from "../utils/tagColourGenerator";
 
 const PublishedBatch = ({ batch, small = false }) => {
   const [publishedBooks, setPublishedBooks] = useState(batch.books);
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
+    if (width > 768) setPublishedBooks(batch.books);
+    if (width <= 768)
+      setPublishedBooks([batch.books[0], batch.books[1], batch.books[2]]);
+  }, [width, batch.books]);
+
+  useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
-      if (width <= 768) {
+      if (width <= 768 && small) {
         setPublishedBooks([batch.books[0], batch.books[1], batch.books[2]]);
       }
       if (width > 768) {
@@ -52,7 +58,7 @@ const PublishedBatch = ({ batch, small = false }) => {
         <Stack direction="horizontal" gap={2} className="mt-2">
           {batch.tags.map((tag) => {
             return (
-              <Badge key={tag.id} bg={colourGenerator()}>
+              <Badge key={tag.id} bg="secondary">
                 {tag.title}
               </Badge>
             );

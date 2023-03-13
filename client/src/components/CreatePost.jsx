@@ -18,7 +18,7 @@ const CreatePost = () => {
       <textarea
         name="post"
         rows="20"
-        style={{ width: "80%" }}
+        className="post-container"
         value={localPost}
         onChange={(e) => setLocalPost(e.target.value)}
       />

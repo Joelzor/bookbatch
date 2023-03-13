@@ -92,3 +92,25 @@
   color: #5ca6b5;
   font-size: 24px;
 }
+
+.tags-container {
+  width: 80%;
+}
+
+.post-container {
+  width: 80%;
+}
+
+@media screen and (max-width: 768px) {
+  .batch-container {
+    width: 100%;
+  }
+
+  .tags-container {
+    width: 100%;
+  }
+
+  .post-container {
+    width: 100%;
+  }
+}

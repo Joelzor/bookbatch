@@ -9,7 +9,7 @@ const CreateTags = ({ editing = false }) => {
   const { localTags, setLocalTags } = useBatchContext();
 
   return (
-    <Stack className="mt-4" style={{ width: "80%" }}>
+    <Stack className="mt-4 tags-container">
       <h5 className="create-heading">
         <AiFillTags className="create-icon" />
         Tags

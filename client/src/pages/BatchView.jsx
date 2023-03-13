@@ -34,11 +34,6 @@ const BatchView = () => {
             <PublishedBatch batch={batch} />
             <Stack gap={3} className="btn-container">
               <Button variant="outline-info">Save to favourites</Button>
-              {/* {loggedInUser &&
-                loggedInUser.id === batch.userId &&
-                !batch.published && (
-                 
-                )} */}
               {loggedInUser && loggedInUser.id === batch.userId && (
                 <>
                   <Button

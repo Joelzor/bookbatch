@@ -41,3 +41,9 @@
     height: 250px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .batch-btn-container {
+    display: block;
+  }
+}
