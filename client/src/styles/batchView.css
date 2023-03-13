@@ -35,3 +35,9 @@
 .book-row-small {
   height: 220px;
 }
+
+@media screen and (max-width: 1000px) {
+  .book-row-small {
+    height: 250px;
+  }
+}

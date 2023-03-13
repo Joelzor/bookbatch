@@ -29,7 +29,8 @@ const Home = () => {
     <Container className="p-4">
       <h4 className="mt-4 mb-4 text-center">WELCOME BACK</h4>
       <Row>
-        <Col xs={9}>
+        {/* xs={9} */}
+        <Col xs={12} xxl={9}>
           <h5>Latest batches</h5>
           <Stack>
             {lastBatch && (
@@ -52,7 +53,7 @@ const Home = () => {
             )}
           </Stack>
         </Col>
-        <Col>
+        <Col className="newsfeed">
           <Stack className="newsfeed-container">
             <h5 className="newsfeed-title">Latest news</h5>
             <p className="newsfeed-subheading">Bookbatch launch!</p>
