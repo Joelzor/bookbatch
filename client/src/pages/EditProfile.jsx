@@ -3,8 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Form, Row, Col, Stack, Button } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 
+const dataStructure = {
+  firstName: "",
+  lastName: "",
+  bio: "",
+  profileImg: "",
+};
+
 const EditProfile = () => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(dataStructure);
   const { getUser, updateProfile } = useGlobalContext();
   const { id } = useParams();
   const navigate = useNavigate();
