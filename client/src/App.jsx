@@ -12,7 +12,6 @@ import { useGlobalContext } from "./context/auth";
 
 const App = () => {
   const { loggedInUser } = useGlobalContext();
-  // const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -26,7 +25,7 @@ const App = () => {
         <Route path="/mybatches" element={<MyBatches />} />
         <Route path="/batches" element={<Browse />} />
         <Route path="/batches/:id" element={<BatchView />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="*" element={<h1>Error!</h1>} />
       </Routes>
     </>

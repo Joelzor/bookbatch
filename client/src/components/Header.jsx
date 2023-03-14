@@ -69,7 +69,7 @@ const Header = () => {
                     <NavDropdown.Item>Saved</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title="Profile">
-                    <NavDropdown.Item href="/profile">
+                    <NavDropdown.Item href={`/profile/${loggedInUser.id}`}>
                       My profile
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={userLogout}>

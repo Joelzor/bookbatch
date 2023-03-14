@@ -70,12 +70,23 @@ const AuthProvider = ({ children }) => {
     setLoggedInUser(null);
   };
 
+  const getUser = async (id) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/users/${id}`
+    );
+
+    const data = await response.json();
+
+    return data;
+  };
+
   const value = {
     loggedInUser,
     setLoggedInUser,
     register,
     userLogin,
     logout,
+    getUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
