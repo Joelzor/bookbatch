@@ -5,7 +5,7 @@ import { useGlobalContext } from "../context/auth";
 
 const EditProfile = () => {
   const [userData, setUserData] = useState(null);
-  const { getUser, loggedInUser, updateProfile } = useGlobalContext();
+  const { getUser, updateProfile } = useGlobalContext();
   const { id } = useParams();
   const navigate = useNavigate();
 

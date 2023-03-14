@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Stack, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../styles/batchView.css";
 // import colourGenerator from "../utils/tagColourGenerator";
 
@@ -35,7 +36,9 @@ const PublishedBatch = ({ batch, small = false }) => {
     <Card className={small ? "mt-4 batch-card-small" : "mt-4 batch-container"}>
       <Card.Header className="batch-header">
         <p>{batch.title}</p>
-        <p>{`Created by ${batch.user.username}`}</p>
+        <Link to={`/profile/${batch.user.id}`} className="profile-link">
+          <p>{`Created by ${batch.user.username}`}</p>
+        </Link>
       </Card.Header>
       <Row className={small ? "book-row-small" : ""}>
         {publishedBooks.map((book) => {

@@ -52,7 +52,7 @@ const Profile = () => {
             </Row>
             <Row className="mt-4 profile-bio">
               <h5>Bio:</h5>
-              <p>{user?.profile?.bio}</p>
+              <p>{user?.profile?.bio || "This user has no bio"}</p>
             </Row>
             {user && loggedInUser && loggedInUser.id === user.id && (
               <Stack
