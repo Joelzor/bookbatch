@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Col, Row, Stack, Button } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import "../styles/profile.css";
+import noProfilePic from "../images/no-profile-pic.jpg";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -27,11 +28,20 @@ const Profile = () => {
         <>
           <h3 className="text-center mt-4">{user.username}</h3>
           <Stack direction="horizontal" className="justify-content-center mt-4">
-            <img
-              src={user?.profile?.profileImg}
-              alt="Profile pic"
-              className="profile-pic"
-            />
+            {user?.profile?.profileImg && (
+              <img
+                src={user?.profile?.profileImg}
+                alt="Profile pic"
+                className="profile-pic"
+              />
+            )}
+            {!user?.profile?.profileImg && (
+              <img
+                src={noProfilePic}
+                alt="Stock profile pic"
+                className="profile-pic"
+              />
+            )}
           </Stack>
           <Container className="mt-4 profile-container">
             <Row>
