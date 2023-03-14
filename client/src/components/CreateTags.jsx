@@ -15,7 +15,8 @@ const CreateTags = ({ editing = false }) => {
         Tags
       </h5>
       <p>
-        Mix and match tags- select default or start typing to create your own
+        Mix and match tags- choose one of the suggestions or start typing to
+        create your own
       </p>
       {!editing && (
         <CreatableSelect
