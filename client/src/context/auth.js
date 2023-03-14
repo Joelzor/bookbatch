@@ -80,6 +80,26 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const updateProfile = async (userData, id) => {
+    const token = localStorage.getItem("access-token");
+
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/users/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(userData),
+      }
+    );
+
+    const data = await response.json();
+
+    return data;
+  };
+
   const value = {
     loggedInUser,
     setLoggedInUser,
@@ -87,6 +107,7 @@ const AuthProvider = ({ children }) => {
     userLogin,
     logout,
     getUser,
+    updateProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

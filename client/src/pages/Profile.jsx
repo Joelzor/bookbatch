@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Col, Row, Stack, Button } from "react-bootstrap";
 import { useGlobalContext } from "../context/auth";
 import "../styles/profile.css";
@@ -8,6 +8,7 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const { getUser, loggedInUser } = useGlobalContext();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // error handling needs doing
@@ -18,7 +19,7 @@ const Profile = () => {
     }
   }, [getUser, id]);
 
-  console.log(user);
+  const navigateToEdit = () => navigate(`/profile/edit/${id}`);
 
   return (
     <Container>
@@ -58,7 +59,9 @@ const Profile = () => {
                 direction="horizontal"
                 className="justify-content-center mt-4"
               >
-                <Button variant="outline-primary">Edit Profile</Button>
+                <Button variant="outline-primary" onClick={navigateToEdit}>
+                  Edit Profile
+                </Button>
               </Stack>
             )}
           </Container>

@@ -7,12 +7,13 @@ const {
   deleteUser,
   updateUserProfile,
 } = require("../controllers/userController");
+const { authenticate } = require("../middleware/auth");
 
 router.route("/").get(getAllUsers).post(createUser);
 router
   .route("/:id")
   .get(getUserById)
-  .delete(deleteUser)
-  .patch(updateUserProfile);
+  .delete(authenticate, deleteUser)
+  .patch(authenticate, updateUserProfile);
 
 module.exports = router;

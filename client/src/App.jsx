@@ -8,6 +8,7 @@ import BatchView from "./pages/BatchView";
 import MyBatches from "./pages/MyBatches";
 import Browse from "./pages/Browse";
 import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 import { useGlobalContext } from "./context/auth";
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/batches" element={<Browse />} />
         <Route path="/batches/:id" element={<BatchView />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile/edit/:id" element={<EditProfile />} />
         <Route path="*" element={<h1>Error!</h1>} />
       </Routes>
     </>
