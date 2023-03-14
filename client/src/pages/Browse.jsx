@@ -31,11 +31,22 @@ const Browse = () => {
   };
 
   const searchBatches = (query) => {
-    const searchResults = batches.filter((batch) => {
+    const titleResults = batches.filter((batch) => {
       return batch.title.toLowerCase().includes(query.toLowerCase());
     });
 
-    setResults(searchResults);
+    const tagResults = [];
+    batches.forEach((batch) => {
+      const filteredTags = batch.tags.filter((tag) =>
+        tag.title.toLowerCase().includes(query.toLowerCase())
+      );
+      if (filteredTags.length > 0) tagResults.push(batch);
+    });
+
+    const results = [...titleResults, ...tagResults];
+    const uniqueResults = [...new Set(results)];
+
+    setResults(uniqueResults);
   };
 
   return (
