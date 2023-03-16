@@ -10,7 +10,7 @@ const Browse = () => {
   const { getAllBatches } = useBatchContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [batches, setBatches] = useState([]);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(null);
   const searchParams = useSearchParams()[0];
 
   useEffect(() => {
@@ -66,18 +66,19 @@ const Browse = () => {
           </Form>
           <h4 className="search-heading">Search results</h4>
           <Stack>
-            {results.length === 0 &&
-              searchQuery &&
-              "You search returned 0 results. Please try again!"}
-            {results.map((result) => {
-              return (
-                <div key={result.id}>
-                  <Link to={`/batches/${result.id}`} className="batch-link">
-                    <PublishedBatch batch={result} small={true} />
-                  </Link>
-                </div>
-              );
-            })}
+            {!results ||
+              (results.length === 0 &&
+                "You search returned 0 results. Please try again!")}
+            {results &&
+              results.map((result) => {
+                return (
+                  <div key={result.id}>
+                    <Link to={`/batches/${result.id}`} className="batch-link">
+                      <PublishedBatch batch={result} small={true} />
+                    </Link>
+                  </div>
+                );
+              })}
           </Stack>
         </Col>
         <Col>
