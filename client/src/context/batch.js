@@ -152,6 +152,23 @@ const BatchProvider = ({ children }) => {
 
     return data;
   };
+  const deleteBatchFromSaved = async (batchId) => {
+    const token = localStorage.getItem("access-token");
+
+    const res = await fetch(
+      `${baseUrl}/batches/${batchId}/save/${loggedInUser.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    return data;
+  };
 
   const value = {
     searchBooks,
@@ -172,6 +189,7 @@ const BatchProvider = ({ children }) => {
     setUpBatchEdit,
     deleteBatch,
     addBatchToSaved,
+    deleteBatchFromSaved,
   };
 
   return (
