@@ -20,7 +20,14 @@ const getUserById = async (req, res, next) => {
     include: {
       batches: true,
       profile: true,
-      saved: true,
+      saved: {
+        include: {
+          user: true,
+          books: true,
+          post: true,
+          tags: true,
+        },
+      },
     },
   });
 
