@@ -18,7 +18,7 @@ const MyBatches = () => {
         setLoading(false);
       })
       .catch((err) => {
-        // setLoading(false);
+        setLoading(false);
         console.error(err);
       });
   }, [getMyBatches]);

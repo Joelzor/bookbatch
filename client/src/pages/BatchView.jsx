@@ -6,6 +6,8 @@ import ReactMarkdown from "react-markdown";
 import { useBatchContext } from "../context/batch";
 import { useGlobalContext } from "../context/auth";
 import "../styles/batchView.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const BatchView = () => {
   const { getBatch, deleteBatch } = useBatchContext();
@@ -31,7 +33,8 @@ const BatchView = () => {
       {batch && (
         <>
           <Stack direction="horizontal" gap={4} className="batch-btn-container">
-            <PublishedBatch batch={batch} />
+            {<PublishedBatch batch={batch} /> || <Skeleton />}
+
             <Stack gap={3} className="btn-container">
               <Button variant="outline-info">Save to favourites</Button>
               {loggedInUser && loggedInUser.id === batch.userId && (

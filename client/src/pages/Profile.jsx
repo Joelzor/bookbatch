@@ -56,7 +56,10 @@ const Profile = () => {
                 <Stack gap={1}>
                   <h5>{user?.profile?.firstName || "N/A"}</h5>
                   <h5>{user?.profile?.lastName || "N/A"}</h5>
-                  <h5>{user?.batches.length || "No batches created!"}</h5>
+                  <h5>
+                    {(user.batches && user?.batches.length) ||
+                      "No batches created!"}
+                  </h5>
                 </Stack>
               </Col>
             </Row>

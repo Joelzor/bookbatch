@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { useBatchContext } from "../context/batch";
 import PublishedBatch from "../components/PublishedBatch";
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import "../styles/home.css";
 import openShop from "../images/open-shop.jpg";
 
 const Home = () => {
   const { getAllBatches } = useBatchContext();
   const [batches, setBatches] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [lastBatch, setLastBatch] = useState(null);
   const [secondLastBatch, setSecondLastBatch] = useState(null);
   const [thirdLastBatch, setThirdLastBatch] = useState(null);
@@ -33,24 +36,24 @@ const Home = () => {
         <Col xs={12} xxl={9}>
           <h5>Latest batches</h5>
           <Stack>
-            {lastBatch && (
+            {(lastBatch && (
               <Link to={`/batches/${lastBatch.id}`} className="batch-link">
                 <PublishedBatch batch={lastBatch} small={true} />
               </Link>
-            )}
-            {secondLastBatch && (
+            )) || <Skeleton />}
+            {(secondLastBatch && (
               <Link
                 to={`/batches/${secondLastBatch.id}`}
                 className="batch-link"
               >
                 <PublishedBatch batch={secondLastBatch} small={true} />
               </Link>
-            )}
-            {thirdLastBatch && (
+            )) || <Skeleton />}
+            {(thirdLastBatch && (
               <Link to={`/batches/${thirdLastBatch.id}`} className="batch-link">
                 <PublishedBatch batch={thirdLastBatch} small={true} />
               </Link>
-            )}
+            )) || <Skeleton />}
           </Stack>
         </Col>
         <Col className="newsfeed">
