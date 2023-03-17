@@ -66,7 +66,7 @@ const Header = () => {
                     <NavDropdown.Item href="/mybatches">
                       My batches
                     </NavDropdown.Item>
-                    <NavDropdown.Item>Saved</NavDropdown.Item>
+                    <NavDropdown.Item href="/saved">Saved</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title="Profile">
                     <NavDropdown.Item href={`/profile/${loggedInUser.id}`}>

@@ -20,6 +20,7 @@ const getUserById = async (req, res, next) => {
     include: {
       batches: true,
       profile: true,
+      saved: true,
     },
   });
 
