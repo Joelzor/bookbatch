@@ -2,3 +2,18 @@
   justify-content: center;
   align-items: center;
 }
+
+.batch-header-saved {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  background-color: #ff9f1c;
+}
+
+.remove-icon {
+  cursor: pointer;
+  font-size: 48px;
+  color: #fa5252;
+}

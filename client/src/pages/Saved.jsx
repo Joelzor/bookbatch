@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context/auth";
 import { useBatchContext } from "../context/batch";
@@ -9,6 +9,7 @@ import "../styles/saved.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "../styles/home.css";
 import Skeleton from "react-loading-skeleton";
+import { IoMdRemoveCircle } from "react-icons/io";
 
 const Saved = () => {
   const { loggedInUser } = useGlobalContext();
@@ -48,13 +49,19 @@ const Saved = () => {
             <Row className="saved-row" key={batch.id}>
               <Col xs={10}>
                 <Link to={`/batches/${batch.id}`} className="batch-link">
-                  <PublishedBatch batch={batch} small={true} key={batch.id} />
+                  <PublishedBatch
+                    batch={batch}
+                    small={true}
+                    saved={true}
+                    key={batch.id}
+                  />
                 </Link>
               </Col>
               <Col>
-                <Button variant="secondary" onClick={() => onDelete(batch.id)}>
-                  Remove
-                </Button>
+                <IoMdRemoveCircle
+                  onClick={() => onDelete(batch.id)}
+                  className="remove-icon"
+                />
               </Col>
             </Row>
           );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../styles/batchView.css";
 // import colourGenerator from "../utils/tagColourGenerator";
 
-const PublishedBatch = ({ batch, small = false }) => {
+const PublishedBatch = ({ batch, small = false, saved = false }) => {
   const [publishedBooks, setPublishedBooks] = useState(batch.books);
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -34,7 +34,7 @@ const PublishedBatch = ({ batch, small = false }) => {
 
   return (
     <Card className={small ? "mt-4 batch-card-small" : "mt-4 batch-container"}>
-      <Card.Header className="batch-header">
+      <Card.Header className={saved ? "batch-header-saved" : "batch-header"}>
         <p>{batch.title}</p>
         <Link to={`/profile/${batch.user.id}`} className="profile-link">
           <p>{`Created by ${batch.user.username}`}</p>
