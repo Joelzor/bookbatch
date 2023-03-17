@@ -150,7 +150,7 @@ const CreateBatch = ({ editing = false }) => {
                     type="search"
                     name="query"
                     value={searchQuery}
-                    placeholder="Search for a book..."
+                    placeholder="Search for a book title..."
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="searchbar"
                   />
