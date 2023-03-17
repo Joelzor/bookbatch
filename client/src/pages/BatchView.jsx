@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, Stack, Button } from "react-bootstrap";
+import { Container, Stack, Button, Modal } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
 import ReactMarkdown from "react-markdown";
 import { useBatchContext } from "../context/batch";
@@ -10,11 +10,15 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const BatchView = () => {
-  const { getBatch, deleteBatch } = useBatchContext();
+  const { getBatch, deleteBatch, addBatchToSaved } = useBatchContext();
   const { loggedInUser } = useGlobalContext();
   const [batch, setBatch] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   useEffect(() => {
     getBatch(id).then((data) => {
@@ -28,6 +32,11 @@ const BatchView = () => {
     navigate("/");
   };
 
+  const onSave = (batchId) => {
+    addBatchToSaved(batchId);
+    navigate("/saved");
+  };
+
   return (
     <Container>
       {batch && (
@@ -36,7 +45,9 @@ const BatchView = () => {
             {<PublishedBatch batch={batch} /> || <Skeleton />}
 
             <Stack gap={3} className="btn-container">
-              <Button variant="outline-info">Save to favourites</Button>
+              <Button variant="outline-info" onClick={handleShow}>
+                Save to favourites
+              </Button>
               {loggedInUser && loggedInUser.id === batch.userId && (
                 <>
                   <Button
@@ -65,6 +76,22 @@ const BatchView = () => {
           </Stack>
         </>
       )}
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Save batch</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You are about to save this batch to your favourites!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Back
+          </Button>
+          <Button variant="primary" onClick={() => onSave(batch.id)}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

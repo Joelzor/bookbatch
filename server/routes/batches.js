@@ -23,7 +23,7 @@ router
 router.route("/user/:id").get(getBatchesByUser);
 router
   .route("/:batchId/save/:userId")
-  .patch(addBatchToSaved)
-  .delete(deleteBatchFromSaved);
+  .patch(authenticate, addBatchToSaved)
+  .delete(authenticate, deleteBatchFromSaved);
 
 module.exports = router;
