@@ -34,7 +34,8 @@ const BatchView = () => {
 
   const onSave = (batchId) => {
     addBatchToSaved(batchId);
-    navigate("/saved");
+    handleClose();
+    // navigate("/saved");
   };
 
   return (

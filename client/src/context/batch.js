@@ -104,6 +104,14 @@ const BatchProvider = ({ children }) => {
     return data;
   };
 
+  const getSavedBatches = async () => {
+    const res = await fetch(`${baseUrl}/users/${loggedInUser.id}`);
+
+    const data = await res.json();
+
+    return data.saved;
+  };
+
   const clearAll = () => {
     setLocalBooks([]);
     setLocalTags([]);
@@ -190,6 +198,7 @@ const BatchProvider = ({ children }) => {
     deleteBatch,
     addBatchToSaved,
     deleteBatchFromSaved,
+    getSavedBatches,
   };
 
   return (

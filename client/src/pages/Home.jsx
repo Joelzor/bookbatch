@@ -11,7 +11,6 @@ import openShop from "../images/open-shop.jpg";
 const Home = () => {
   const { getAllBatches } = useBatchContext();
   const [batches, setBatches] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [lastBatch, setLastBatch] = useState(null);
   const [secondLastBatch, setSecondLastBatch] = useState(null);
   const [thirdLastBatch, setThirdLastBatch] = useState(null);
