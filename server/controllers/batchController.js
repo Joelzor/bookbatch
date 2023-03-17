@@ -270,6 +270,74 @@ const updateBatch = async (req, res, next) => {
   res.status(201).json(updatedBatch);
 };
 
+const addBatchToSaved = async (req, res, next) => {
+  const batchId = Number(req.params.batchId);
+  const userId = Number(req.params.userId);
+
+  const batch = await prisma.batch.findUnique({
+    where: { id: batchId },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${batchId}`, 404));
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    return next(createCustomError(`There is no user with id ${userId}`, 404));
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        connect: {
+          id: batchId,
+        },
+      },
+    },
+  });
+
+  res.status(200).json({ status: "success" });
+};
+
+const deleteBatchFromSaved = async (req, res, next) => {
+  const batchId = Number(req.params.batchId);
+  const userId = Number(req.params.userId);
+
+  const batch = await prisma.batch.findUnique({
+    where: { id: batchId },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${batchId}`, 404));
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    return next(createCustomError(`There is no user with id ${userId}`, 404));
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        disconnect: {
+          id: batchId,
+        },
+      },
+    },
+  });
+
+  res.status(200).json({ status: "success" });
+};
+
 module.exports = {
   getAllBatches,
   createBatch,
@@ -277,4 +345,6 @@ module.exports = {
   getBatchesByUser,
   deleteBatch,
   updateBatch,
+  addBatchToSaved,
+  deleteBatchFromSaved,
 };

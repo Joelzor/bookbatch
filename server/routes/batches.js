@@ -9,6 +9,8 @@ const {
   getBatchesByUser,
   deleteBatch,
   updateBatch,
+  addBatchToSaved,
+  deleteBatchFromSaved,
 } = require("../controllers/batchController");
 const { authenticate } = require("../middleware/auth");
 
@@ -19,5 +21,9 @@ router
   .delete(authenticate, deleteBatch)
   .patch(authenticate, updateBatch);
 router.route("/user/:id").get(getBatchesByUser);
+router
+  .route("/:batchId/save/:userId")
+  .patch(addBatchToSaved)
+  .delete(deleteBatchFromSaved);
 
 module.exports = router;
