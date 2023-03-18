@@ -38,29 +38,29 @@ model Profile {
 }
 
 model Batch {
-  id        Int      @id @default(autoincrement())
-  title     String   @default("My batch")
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User?    @relation(name: "batches", fields: [userId], references: [id], onDelete: Cascade)
+  id        Int       @id @default(autoincrement())
+  title     String    @default("My batch")
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(name: "batches", fields: [userId], references: [id], onDelete: Cascade)
   userId    Int?
   books     Book[]
   post      Post?
   tags      Tag[]
   savedTo   User[]
+  comments  Comment[]
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   body      String
-  User      User?     @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id])
   userId    Int?
-  comments  Comment[]
-  batch     Batch?    @relation(fields: [batchId], references: [id])
-  batchId   Int?      @unique
+  batch     Batch?   @relation(fields: [batchId], references: [id])
+  batchId   Int?     @unique
 }
 
 model Comment {
@@ -70,8 +70,8 @@ model Comment {
   updatedAt DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
   userId    Int?
-  Post      Post?    @relation(fields: [postId], references: [id])
-  postId    Int?
+  Batch     Batch?   @relation(fields: [batchId], references: [id])
+  batchId   Int?
 }
 
 model Tag {

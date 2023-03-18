@@ -75,7 +75,7 @@ const BatchView = () => {
           <Stack className="mt-4">
             <h5>Comments</h5>
             <CommentForm />
-            {batch.post.comments.length === 0 &&
+            {batch.comments.length === 0 &&
               "This batch currently has no comments"}
           </Stack>
         </>

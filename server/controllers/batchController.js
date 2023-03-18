@@ -99,12 +99,9 @@ const getBatchData = async (id) => {
     include: {
       books: true,
       tags: true,
-      post: {
-        include: {
-          comments: true,
-        },
-      },
+      post: true,
       user: true,
+      comments: true,
     },
   });
 
