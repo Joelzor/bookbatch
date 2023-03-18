@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Stack, Button, Modal } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
+import CommentForm from "../components/CommentForm";
 import ReactMarkdown from "react-markdown";
 import { useBatchContext } from "../context/batch";
 import { useGlobalContext } from "../context/auth";
 import "../styles/batchView.css";
+import "../styles/comments.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -39,7 +41,7 @@ const BatchView = () => {
   };
 
   return (
-    <Container>
+    <Container className="p-4">
       {batch && (
         <>
           <Stack direction="horizontal" gap={4} className="batch-btn-container">
@@ -72,6 +74,7 @@ const BatchView = () => {
           </Stack>
           <Stack className="mt-4">
             <h5>Comments</h5>
+            <CommentForm />
             {batch.post.comments.length === 0 &&
               "This batch currently has no comments"}
           </Stack>
