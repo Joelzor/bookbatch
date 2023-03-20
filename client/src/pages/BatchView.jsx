@@ -82,11 +82,14 @@ const BatchView = () => {
               setComments={setComments}
               batchId={batch.id}
             />
-            {comments.length === 0 && "This batch currently has no comments"}
+            {comments &&
+              comments.length === 0 &&
+              "This batch currently has no comments"}
             <Stack gap={3}>
-              {comments.map((comment, index) => {
-                return <Comment comment={comment} key={index} />;
-              })}
+              {comments &&
+                comments.map((comment, index) => {
+                  return <Comment comment={comment} key={index} />;
+                })}
             </Stack>
           </Stack>
         </>

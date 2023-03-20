@@ -69,4 +69,27 @@ const createComment = async (req, res, next) => {
   res.status(201).json(newComment);
 };
 
-module.exports = { createComment, getAllComments, getCommentsByBatchId };
+const deleteComment = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  const comment = await prisma.comment.findUnique({
+    where: { id },
+  });
+
+  if (!comment) {
+    return next(createCustomError(`There is no comment with id ${id}`, 404));
+  }
+
+  const deletedComment = await prisma.comment.delete({
+    where: { id },
+  });
+
+  res.status(200).json(deletedComment);
+};
+
+module.exports = {
+  createComment,
+  getAllComments,
+  getCommentsByBatchId,
+  deleteComment,
+};

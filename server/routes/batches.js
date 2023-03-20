@@ -17,7 +17,7 @@ const { authenticate } = require("../middleware/auth");
 router.route("/").get(getAllBatches).post(authenticate, createBatch);
 router
   .route("/:id")
-  .get(cache("10 minutes"), getBatchById)
+  .get(cache("1 minute"), getBatchById)
   .delete(authenticate, deleteBatch)
   .patch(authenticate, updateBatch);
 router.route("/user/:id").get(getBatchesByUser);
