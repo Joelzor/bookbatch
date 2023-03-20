@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Stack, Button, Modal } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
 import CommentForm from "../components/CommentForm";
+import Comment from "../components/Comment";
 import ReactMarkdown from "react-markdown";
 import { useBatchContext } from "../context/batch";
 import { useGlobalContext } from "../context/auth";
@@ -16,6 +17,7 @@ const BatchView = () => {
   const { loggedInUser } = useGlobalContext();
   const [batch, setBatch] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [comments, setComments] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,6 +28,7 @@ const BatchView = () => {
     getBatch(id).then((data) => {
       // error handling if batch id doesn't exist
       setBatch(data);
+      setComments(data.comments);
     });
   }, [getBatch, id]);
 
@@ -75,8 +78,10 @@ const BatchView = () => {
           <Stack className="mt-4">
             <h5>Comments</h5>
             <CommentForm />
-            {batch.comments.length === 0 &&
-              "This batch currently has no comments"}
+            {comments.length === 0 && "This batch currently has no comments"}
+            {comments.map((comment) => {
+              return <Comment comment={comment} key={comment.id} />;
+            })}
           </Stack>
         </>
       )}

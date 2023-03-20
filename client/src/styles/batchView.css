@@ -42,3 +42,26 @@
     display: block;
   }
 }
+
+/* comments */
+
+.comment {
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: #eee;
+}
+
+.comment-title-row {
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #78c2ad;
+  padding: 5px 12px;
+  border-radius: 12px;
+}
+
+.comment-title {
+  padding-top: 2px;
+  color: #fff;
+}
