@@ -8,6 +8,24 @@ const getAllComments = async (req, res) => {
   res.status(200).json(comments);
 };
 
+const getCommentsByBatchId = async (req, res, next) => {
+  const batchId = Number(req.params.batchId);
+
+  const batch = await prisma.batch.findUnique({
+    where: { id: batchId },
+  });
+
+  if (!batch) {
+    return next(createCustomError(`There is no batch with id ${batchId}`, 404));
+  }
+
+  const comments = await prisma.comment.findMany({
+    where: { batchId },
+  });
+
+  res.status(200).json(comments);
+};
+
 const createComment = async (req, res, next) => {
   const { userId, batchId, content } = req.body;
 
@@ -51,4 +69,4 @@ const createComment = async (req, res, next) => {
   res.status(201).json(newComment);
 };
 
-module.exports = { createComment, getAllComments };
+module.exports = { createComment, getAllComments, getCommentsByBatchId };
