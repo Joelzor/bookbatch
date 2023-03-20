@@ -57,6 +57,7 @@ const getAllBatches = async (req, res) => {
       tags: true,
       post: true,
       user: true,
+      comments: true,
     },
   });
 

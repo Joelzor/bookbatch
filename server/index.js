@@ -12,6 +12,7 @@ const userRouter = require("./routes/users");
 const batchRouter = require("./routes/batches");
 const authRouter = require("./routes/auth");
 const bookRouter = require("./routes/books");
+const commentRouter = require("./routes/comments");
 
 // middlewares
 app.use(cors());
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/batches", batchRouter);
 app.use("/api/v1/books", bookRouter);
+app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1", authRouter);
 
 app.use(notFound);
