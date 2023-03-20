@@ -77,11 +77,13 @@ const BatchView = () => {
           </Stack>
           <Stack className="mt-4">
             <h5>Comments</h5>
-            <CommentForm />
+            <CommentForm comments={comments} setComments={setComments} />
             {comments.length === 0 && "This batch currently has no comments"}
-            {comments.map((comment) => {
-              return <Comment comment={comment} key={comment.id} />;
-            })}
+            <Stack gap={4}>
+              {comments.map((comment, index) => {
+                return <Comment comment={comment} key={index} />;
+              })}
+            </Stack>
           </Stack>
         </>
       )}
