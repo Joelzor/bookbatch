@@ -74,7 +74,7 @@ const CreateBatch = ({ editing = false }) => {
   };
 
   const checkBatchStatus = () => {
-    if (localBooks.length < 3) {
+    if (localBooks.length < 5) {
       setErrorResponse(true);
       return;
     }
@@ -91,7 +91,9 @@ const CreateBatch = ({ editing = false }) => {
       return "You haven't written a post! Are you sure you want to publish?";
     }
 
-    return "Are you sure you want to publish your batch?";
+    return editing
+      ? "Are you ready to publish? Your changes may take a few minutes to appear!"
+      : "Are you sure you want to publish your batch?";
   };
 
   const removeAlert = () => {
@@ -132,7 +134,7 @@ const CreateBatch = ({ editing = false }) => {
               {errorResponse && (
                 <>
                   <Notification
-                    message="You need at least 3 books!"
+                    message="You need at least 5 books!"
                     type="secondary"
                   />
                   {removeAlert()}
