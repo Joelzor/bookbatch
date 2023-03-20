@@ -28,6 +28,7 @@ const CreateBatch = ({ editing = false }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [errorResponse, setErrorResponse] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -58,6 +59,7 @@ const CreateBatch = ({ editing = false }) => {
       createBatch(true, true, id);
       return navigate("/");
     }
+    setGenerating(true);
     const newBatch = await createBatch();
     navigate(`/batches/${newBatch.id}`);
   };
@@ -97,6 +99,10 @@ const CreateBatch = ({ editing = false }) => {
       setErrorResponse(false);
     }, 2000);
   };
+
+  if (generating) {
+    return <h4 className="mt-4 text-center">Publishing batch! Stand by...</h4>;
+  }
 
   return (
     <>
