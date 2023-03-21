@@ -45,10 +45,11 @@ const BatchView = () => {
 
   return (
     <Container className="p-4">
+      {!batch && <Skeleton count={5} />}
       {batch && (
         <>
           <Stack direction="horizontal" gap={4} className="batch-btn-container">
-            {<PublishedBatch batch={batch} /> || <Skeleton />}
+            {<PublishedBatch batch={batch} />}
 
             <Stack gap={3} className="btn-container">
               <Button variant="outline-info" onClick={handleShow}>
