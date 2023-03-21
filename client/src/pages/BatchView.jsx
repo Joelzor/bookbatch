@@ -44,12 +44,16 @@ const BatchView = () => {
   };
 
   const deleteComment = async (id) => {
-    await fetch(`${process.env.REACT_APP_BASE_URL}/comments/${id}`, {
-      method: "DELETE",
-    });
-
     setComments((prev) => {
       return prev.filter((comment) => comment.id !== id);
+    });
+
+    // console.log("id length:", id.toString().length);
+    // console.log("doesnt get sent to server!");
+    if (id.toString().length > 5) return;
+
+    await fetch(`${process.env.REACT_APP_BASE_URL}/comments/${id}`, {
+      method: "DELETE",
     });
   };
 

@@ -23,6 +23,7 @@ const CommentForm = ({ comments, setComments, batchId }) => {
         content,
         username: loggedInUser.username,
         createdAt: new Date(),
+        id: Date.now(),
       },
     ]);
 
