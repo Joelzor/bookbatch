@@ -8,6 +8,8 @@ For example, a user might want to write an introduction to one of their favourit
 
 The user can visit a homepage where the concept is explained with example batches. They will then be able to sign up and customise their profile. From here, they will be able to create their own batch. On the ‘create’ page, they can search for books and add them to a list, add tags, then write their post explaining the collection.
 
+Live project- https://bookbatch.vercel.app/
+
 ## Stack
 
 - React, React Boostrap/vanilla CSS for the styling
@@ -18,8 +20,7 @@ The user can visit a homepage where the concept is explained with example batche
 
 There are many changes coming to Bookbatch, including:
 
-- Saved / favourites page to be implemented
-- Comments system
+- Comments system still being implemented
 - Code refactor- especially the backend
 - Various CSS/responsiveness improvements
 
