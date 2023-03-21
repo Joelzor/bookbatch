@@ -2,11 +2,8 @@ import { Stack } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import { useGlobalContext } from "../context/auth";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, deleteComment }) => {
   const { loggedInUser } = useGlobalContext();
-
-  console.log(loggedInUser.username);
-  console.log(comment);
 
   return (
     <Stack className="comment" gap={3}>
@@ -21,7 +18,10 @@ const Comment = ({ comment }) => {
       <div className="comment-row">
         <p className="comment-content">{comment.content}</p>
         {loggedInUser.username === comment.User.username ? (
-          <AiFillDelete className="comment-delete-btn" />
+          <AiFillDelete
+            className="comment-delete-btn"
+            onClick={() => deleteComment(comment.id)}
+          />
         ) : null}
       </div>
     </Stack>

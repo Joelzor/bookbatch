@@ -43,6 +43,16 @@ const BatchView = () => {
     // navigate("/saved");
   };
 
+  const deleteComment = async (id) => {
+    await fetch(`${process.env.REACT_APP_BASE_URL}/comments/${id}`, {
+      method: "DELETE",
+    });
+
+    setComments((prev) => {
+      return comments.filter((comment) => comment.id !== id);
+    });
+  };
+
   return (
     <Container className="p-4">
       {!batch && <Skeleton count={5} />}
@@ -89,7 +99,13 @@ const BatchView = () => {
             <Stack gap={3}>
               {comments &&
                 comments.map((comment, index) => {
-                  return <Comment comment={comment} key={index} />;
+                  return (
+                    <Comment
+                      comment={comment}
+                      key={index}
+                      deleteComment={deleteComment}
+                    />
+                  );
                 })}
             </Stack>
           </Stack>
