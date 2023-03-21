@@ -49,7 +49,7 @@ const BatchView = () => {
     });
 
     setComments((prev) => {
-      return comments.filter((comment) => comment.id !== id);
+      return prev.filter((comment) => comment.id !== id);
     });
   };
 

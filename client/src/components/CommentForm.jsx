@@ -25,6 +25,8 @@ const CommentForm = ({ comments, setComments, batchId }) => {
         createdAt: new Date(),
       },
     ]);
+
+    setContent("");
   };
 
   return (

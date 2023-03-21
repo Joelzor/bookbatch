@@ -5,6 +5,8 @@ import { useGlobalContext } from "../context/auth";
 const Comment = ({ comment, deleteComment }) => {
   const { loggedInUser } = useGlobalContext();
 
+  console.log(comment.id);
+
   return (
     <Stack className="comment" gap={3}>
       <div className="comment-title-row">
@@ -17,7 +19,9 @@ const Comment = ({ comment, deleteComment }) => {
       </div>
       <div className="comment-row">
         <p className="comment-content">{comment.content}</p>
-        {loggedInUser.username === comment.User.username ? (
+        {loggedInUser &&
+        loggedInUser?.username ===
+          (comment.User?.username || comment?.username) ? (
           <AiFillDelete
             className="comment-delete-btn"
             onClick={() => deleteComment(comment.id)}

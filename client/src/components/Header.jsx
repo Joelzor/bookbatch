@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import { TbBook } from "react-icons/tb";
 import { useGlobalContext } from "../context/auth";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { loggedInUser, logout } = useGlobalContext();
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const userLogout = () => {
@@ -14,14 +14,14 @@ const Header = () => {
     navigate("/");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    if (!query) return;
+  //   if (!query) return;
 
-    const params = new URLSearchParams({ query });
-    navigate({ pathname: "/batches", search: params.toString() });
-  };
+  //   const params = new URLSearchParams({ query });
+  //   navigate({ pathname: "/batches", search: params.toString() });
+  // };
 
   return (
     <header>
@@ -50,15 +50,15 @@ const Header = () => {
               )}
               {loggedInUser && (
                 <>
-                  <Form className="d-flex" onSubmit={handleSubmit}>
+                  {/* <Form className="d-flex" onSubmit={handleSubmit}>
                     <Form.Control
                       type="search"
                       value={query}
                       placeholder="Search batches..."
                       onChange={(e) => setQuery(e.target.value)}
                     />
-                  </Form>
-                  <Nav.Link href="/batches">Browse</Nav.Link>
+                  </Form> */}
+                  <Nav.Link href="/batches">Search</Nav.Link>
                   <NavDropdown title="Batches">
                     <NavDropdown.Item href="/newbatch">
                       Create a batch
