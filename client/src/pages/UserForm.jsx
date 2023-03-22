@@ -77,7 +77,7 @@ const UserForm = ({ login = false }) => {
 
     if (result.status === "success") {
       setTimeout(() => {
-        navigate("/");
+        navigate("/dashboard");
       }, 2000);
     }
   };

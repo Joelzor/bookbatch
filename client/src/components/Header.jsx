@@ -28,7 +28,7 @@ const Header = () => {
       <Navbar variant="dark" bg="primary" expand="lg" collapseOnSelect>
         <Container>
           <Navbar.Brand
-            href="/"
+            href="/dashboard"
             style={{
               display: "flex",
               gap: "16px",
@@ -44,6 +44,8 @@ const Header = () => {
             <Nav className="ms-auto">
               {!loggedInUser && (
                 <>
+                  <Nav.Link href="/dashboard">Home</Nav.Link>
+                  <Nav.Link href="/batches">Search</Nav.Link>
                   <Nav.Link href="/login">Log in</Nav.Link>
                   <Nav.Link href="/register">Sign up</Nav.Link>
                 </>

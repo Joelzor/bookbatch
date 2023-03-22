@@ -19,7 +19,8 @@ const App = () => {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={loggedInUser ? <Home /> : <HomeIntro />} />
+        <Route path="/" element={<HomeIntro />} />
+        <Route path="/dashboard" element={<Home />} />
         <Route path="/login" element={<UserForm login={true} />} />
         <Route path="/register" element={<UserForm />} />
         <Route path="/newbatch" element={<CreateBatch />} />
