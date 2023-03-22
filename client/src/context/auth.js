@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
@@ -8,7 +8,6 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [token, setToken] = useState(null);
-  const navigate = useNavigate();
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -20,11 +19,10 @@ const AuthProvider = ({ children }) => {
       axios(`${baseUrl}/users/${id}`)
         .then((data) => {
           setLoggedInUser(data.data);
-          navigate("/dashboard");
         })
         .catch((err) => console.error(err));
     }
-  }, [token, baseUrl, navigate]);
+  }, [token, baseUrl]);
 
   // taking in data from the user form
   const register = async (userData) => {

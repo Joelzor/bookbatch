@@ -66,9 +66,12 @@ const BatchView = () => {
             {<PublishedBatch batch={batch} />}
 
             <Stack gap={3} className="btn-container">
-              <Button variant="outline-info" onClick={handleShow}>
-                Save to favourites
-              </Button>
+              {!loggedInUser && <p>Sign up to create and save collections!</p>}
+              {loggedInUser && (
+                <Button variant="outline-info" onClick={handleShow}>
+                  Save to favourites
+                </Button>
+              )}
               {loggedInUser && loggedInUser.id === batch.userId && (
                 <>
                   <Button
@@ -92,11 +95,16 @@ const BatchView = () => {
           </Stack>
           <Stack className="mt-4">
             <h5>Comments</h5>
-            <CommentForm
-              comments={comments}
-              setComments={setComments}
-              batchId={batch.id}
-            />
+            {!loggedInUser && (
+              <p className="mb-4">You must be logged in to post a comment</p>
+            )}
+            {loggedInUser && (
+              <CommentForm
+                comments={comments}
+                setComments={setComments}
+                batchId={batch.id}
+              />
+            )}
             {comments &&
               comments.length === 0 &&
               "This batch currently has no comments"}
