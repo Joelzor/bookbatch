@@ -7,8 +7,12 @@
 }
 
 .welcome-container {
-  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding-top: 100px;
+  /* align-items: center; */
 }
 
 .sign-up-btn {
@@ -63,5 +67,26 @@
 @media screen and (max-width: 1400px) {
   .newsfeed {
     margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .hero-title {
+    font-size: 50px;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .hero-title {
+    font-size: 38px;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .hero-title {
+    font-size: 22px;
+    color: #fff;
   }
 }
