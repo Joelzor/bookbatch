@@ -10,15 +10,14 @@ const PublishedBatch = ({ batch, small = false, saved = false }) => {
 
   useEffect(() => {
     if (width > 768) setPublishedBooks(batch.books);
-    if (width <= 768)
-      setPublishedBooks([batch.books[0], batch.books[1], batch.books[2]]);
+    if (width <= 768) setPublishedBooks([batch.books[0], batch.books[1]]);
   }, [width, batch.books]);
 
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
       if (width <= 768 && small) {
-        setPublishedBooks([batch.books[0], batch.books[1], batch.books[2]]);
+        setPublishedBooks([batch.books[0], batch.books[1]]);
       }
       if (width > 768) {
         setPublishedBooks(batch.books);

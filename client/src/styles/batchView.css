@@ -42,3 +42,9 @@
     display: block;
   }
 }
+
+@media screen and (max-width: 640px) {
+  .batch-card-small {
+    height: 340px;
+  }
+}
