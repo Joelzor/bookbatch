@@ -125,4 +125,8 @@
     height: 50px;
     font-size: 10px;
   }
+
+  .searchbar {
+    width: 200px;
+  }
 }

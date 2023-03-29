@@ -21,3 +21,9 @@
   height: 194px;
   width: 128px;
 }
+
+@media screen and (max-width: 640px) {
+  .result {
+    flex-direction: column;
+  }
+}

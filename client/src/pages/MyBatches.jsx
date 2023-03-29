@@ -54,7 +54,6 @@ const MyBatches = () => {
                 <th>Title</th>
                 <th>Created</th>
                 <th>Published</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -74,7 +73,6 @@ const MyBatches = () => {
                     <td>{title}</td>
                     <td>{new Date(createdAt).toLocaleDateString()}</td>
                     <td>{published === true ? "Yes" : "No"}</td>
-                    <td>{published === true ? "Delete" : "Delete, Edit"}</td>
                   </tr>
                 );
               })}
