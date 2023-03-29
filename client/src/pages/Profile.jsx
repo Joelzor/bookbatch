@@ -47,16 +47,16 @@ const Profile = () => {
             <Row>
               <Col>
                 <Stack>
-                  <h5 className="profile-heading">First name:</h5>
-                  <h5 className="profile-heading">Last name:</h5>
-                  <h5 className="profile-heading">Batches created:</h5>
-                </Stack>
-              </Col>
-              <Col>
-                <Stack gap={1}>
-                  <h5>{user?.profile?.firstName || "N/A"}</h5>
-                  <h5>{user?.profile?.lastName || "N/A"}</h5>
                   <h5>
+                    <span className="profile-heading">First name: </span>
+                    {user?.profile?.firstName || "N/A"}
+                  </h5>
+                  <h5>
+                    <span className="profile-heading">Last name: </span>
+                    {user?.profile?.lastName || "N/A"}
+                  </h5>
+                  <h5>
+                    <span className="profile-heading">Batches: </span>
                     {(user.batches && user?.batches.length) ||
                       "No batches created!"}
                   </h5>
