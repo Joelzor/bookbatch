@@ -26,19 +26,19 @@ const Batch = ({ handleShow }) => {
         </Card.Header>
         <Row>
           {localBooks.map((book) => {
-            const { title, imageLinks } = book.volumeInfo;
+            const { title, cover } = book;
             return (
-              <Col key={book.id}>
+              <Col key={book.googleId}>
                 <Stack gap={2} className="p-2 book-container">
                   <img
-                    src={imageLinks?.smallThumbnail || defaultImage}
+                    src={cover || defaultImage}
                     alt={`${title} cover`}
                     className="book-image"
                   />
                   <p className="title-text">{title}</p>
                   <ImCross
                     className="delete-icon"
-                    onClick={() => deleteLocalBook(book.id)}
+                    onClick={() => deleteLocalBook(book.googleId)}
                   />
                 </Stack>
               </Col>

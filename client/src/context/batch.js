@@ -3,7 +3,7 @@ import { useGlobalContext } from "./auth";
 
 const BatchContext = createContext();
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_KEY = process.env.REACT_APP_API_KEY;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const BatchProvider = ({ children }) => {
@@ -22,15 +22,17 @@ const BatchProvider = ({ children }) => {
 
   const searchBooks = async (query) => {
     try {
-      const searchResults = await fetch(`${baseUrl}/books/search`, {
+      const res = await fetch(`${baseUrl}/books/search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(query),
+        body: JSON.stringify({ query }),
       });
 
-      return searchResults;
+      const results = await res.json();
+
+      return results;
     } catch (error) {
       console.error(error);
     }
@@ -38,7 +40,7 @@ const BatchProvider = ({ children }) => {
 
   const deleteLocalBook = (id) => {
     setLocalBooks((prevBooks) => {
-      return prevBooks.filter((book) => book.id !== id);
+      return prevBooks.filter((book) => book.googleId !== id);
     });
   };
 

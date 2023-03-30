@@ -168,10 +168,10 @@ const CreateBatch = ({ editing = false }) => {
                 </Button>
               </Form>
               <Stack gap={4} className="mt-4">
-                {results.map((book) => {
+                {results.map((book, index) => {
                   return (
                     <BookResult
-                      key={book.id}
+                      key={index}
                       bookInfo={book}
                       handleClose={handleClose}
                     />

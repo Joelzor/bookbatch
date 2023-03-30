@@ -5,10 +5,14 @@ import defaultImage from "../images/notfound.png";
 
 const BookResult = ({ bookInfo, handleClose }) => {
   const { localBooks, setLocalBooks } = useBatchContext();
-  const { title, authors, description, imageLinks } = bookInfo.volumeInfo;
+  const { title, author, description, cover } = bookInfo;
+
+  console.log(bookInfo);
 
   const addToBatch = (bookInfo) => {
-    const alreadyAdded = localBooks.find((book) => book.id === bookInfo.id);
+    const alreadyAdded = localBooks.find(
+      (book) => book.googleId === bookInfo.googleId
+    );
     if (alreadyAdded) return;
     setLocalBooks([...localBooks, bookInfo]);
     handleClose();
@@ -17,18 +21,13 @@ const BookResult = ({ bookInfo, handleClose }) => {
   return (
     <Stack gap={2} direction="horizontal" className="result">
       <img
-        src={imageLinks?.smallThumbnail || defaultImage}
+        src={cover || defaultImage}
         alt={`${title} cover`}
         className="result-image"
       />
       <div className="text-container">
         <p className="bold">{title}</p>
-        <p>
-          {authors &&
-            authors.map((author, index) => {
-              return <span key={index}>{author} </span>;
-            })}
-        </p>
+        <p>{author}</p>
         <p>
           {description
             ? `${description.substring(0, 200)}...`
