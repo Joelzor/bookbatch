@@ -51,9 +51,18 @@ const searchBooks = async (req, res, next) => {
     } = book.volumeInfo;
     const yearPublished = new Date(publishedDate).getFullYear();
     const { id } = book;
+
+    let authorString;
+
+    if (!authors) {
+      authorString = "No author information";
+    } else {
+      authorString = authors.join(" & ") || null;
+    }
+
     return {
       title,
-      author: authors.join(" & ") || null,
+      author: authorString,
       cover: imageLinks?.smallThumbnail || null,
       googleId: id,
       yearPublished: yearPublished.toString() || null,
