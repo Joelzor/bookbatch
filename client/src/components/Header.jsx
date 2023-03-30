@@ -60,6 +60,7 @@ const Header = () => {
                       onChange={(e) => setQuery(e.target.value)}
                     />
                   </Form> */}
+                  <Nav.Link href="/dashboard">Home</Nav.Link>
                   <Nav.Link href="/batches">Search</Nav.Link>
                   <NavDropdown title="Batches">
                     <NavDropdown.Item href="/newbatch">
