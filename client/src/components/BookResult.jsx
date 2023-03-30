@@ -7,8 +7,6 @@ const BookResult = ({ bookInfo, handleClose }) => {
   const { localBooks, setLocalBooks } = useBatchContext();
   const { title, author, description, cover } = bookInfo;
 
-  console.log(bookInfo);
-
   const addToBatch = (bookInfo) => {
     const alreadyAdded = localBooks.find(
       (book) => book.googleId === bookInfo.googleId

@@ -77,17 +77,17 @@ const getBatchById = async (req, res, next) => {
     return next(createCustomError(`Cannot find batch with ID ${id}`, 404));
   }
 
-  const newBooksPromise = batch.books.map(async (book) => {
-    const fetchedBook = await axios(
-      `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${process.env.API_KEY}`
-    );
-    book.googleData = fetchedBook.data;
-    return book;
-  });
+  // const newBooksPromise = batch.books.map(async (book) => {
+  //   const fetchedBook = await axios(
+  //     `https://www.googleapis.com/books/v1/volumes/${book.googleId}?key=${process.env.API_KEY}`
+  //   );
+  //   book.googleData = fetchedBook.data;
+  //   return book;
+  // });
 
-  const newBooks = await Promise.all(newBooksPromise);
+  // const newBooks = await Promise.all(newBooksPromise);
 
-  batch.books = newBooks;
+  // batch.books = newBooks;
 
   res.status(200).json(batch);
 };

@@ -45,24 +45,9 @@ const BatchProvider = ({ children }) => {
   };
 
   const createBatch = async (publish = true, update = false, batchId) => {
-    const curatedBooks = localBooks.map((book) => {
-      const { title, authors, imageLinks, publishedDate, pageCount } =
-        book.volumeInfo;
-      const yearPublished = new Date(publishedDate).getFullYear();
-      const { id } = book;
-      return {
-        title,
-        author: authors.join(" & ") || null,
-        cover: imageLinks?.smallThumbnail || null,
-        googleId: id,
-        yearPublished: yearPublished.toString() || null,
-        pageCount: pageCount || null,
-      };
-    });
-
     const batch = {
       title: localTitle,
-      books: curatedBooks,
+      books: localBooks,
       tags: localTags,
       post: localPost,
       published: publish,
@@ -129,8 +114,7 @@ const BatchProvider = ({ children }) => {
     setLocalTitle(title);
     setLocalPost(post.body);
     setLocalTags(tags);
-    const booksData = books.map((book) => book.googleData);
-    setLocalBooks(booksData);
+    setLocalBooks(books);
   };
 
   const deleteBatch = async (batchId) => {
@@ -164,6 +148,7 @@ const BatchProvider = ({ children }) => {
 
     return data;
   };
+
   const deleteBatchFromSaved = async (batchId) => {
     const token = localStorage.getItem("access-token");
 
