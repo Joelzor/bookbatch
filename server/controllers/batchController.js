@@ -36,6 +36,7 @@ const booksControl = (books) => {
           googleId: book.googleId,
           yearPublished: book.yearPublished,
           pageCount: book.pageCount,
+          description: book.description,
         },
       });
     });
@@ -148,7 +149,7 @@ const getBatchesByUser = async (req, res, next) => {
 const createBatch = async (req, res, next) => {
   const { title, published, books, tags, post } = req.body;
 
-  console.log(books);
+  console.log("books received in createBatch:", books);
 
   if (!books) {
     return next(createCustomError("A batch must include some books!", 400));
