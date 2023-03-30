@@ -34,13 +34,12 @@ const BatchView = () => {
 
   const onDelete = (id) => {
     deleteBatch(id);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const onSave = (batchId) => {
     addBatchToSaved(batchId);
     handleClose();
-    // navigate("/saved");
   };
 
   const deleteComment = async (id) => {

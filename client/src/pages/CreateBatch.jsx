@@ -70,7 +70,7 @@ const CreateBatch = ({ editing = false }) => {
       return navigate("/");
     }
     createBatch(false);
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const checkBatchStatus = () => {
