@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { createCustomError } = require("../errors/custom-error");
+const axios = require("axios");
 
 const getAllBooks = async (req, res) => {
   const books = await prisma.book.findMany();
@@ -15,8 +16,6 @@ const createBook = async (req, res, next) => {
     return next(createCustomError("You must provide a title", 400));
   }
 
-  // may need the google books ID to make sure only unique books are ever persisted in DB
-
   const newBook = await prisma.book.create({
     data: {
       title,
@@ -30,4 +29,35 @@ const createBook = async (req, res, next) => {
   res.status(201).json({ message: "success", newBook });
 };
 
-module.exports = { createBook, getAllBooks };
+const searchBooks = async (req, res, next) => {
+  const { query } = req.body;
+
+  if (!query) {
+    return next(createCustomError("You must provide a search query", 400));
+  }
+
+  const data = await axios(
+    `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${process.env.API_KEY}`
+  );
+
+  const curatedBooks = data.data.items.map((book) => {
+    const { title, authors, imageLinks, publishedDate, pageCount } =
+      book.volumeInfo;
+    const yearPublished = new Date(publishedDate).getFullYear();
+    const { id } = book;
+    return {
+      title,
+      author: authors.join(" & ") || null,
+      cover: imageLinks?.smallThumbnail || null,
+      googleId: id,
+      yearPublished: yearPublished.toString() || null,
+      pageCount: pageCount || null,
+    };
+  });
+
+  // console.log(curatedBooks);
+
+  res.status(200).json(curatedBooks);
+};
+
+module.exports = { createBook, getAllBooks, searchBooks };
