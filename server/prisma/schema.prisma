@@ -89,6 +89,7 @@ model Book {
   cover         String?
   yearPublished String?
   pageCount     Int?
+  description   String?
   googleId      String?  @unique
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

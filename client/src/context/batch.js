@@ -22,13 +22,15 @@ const BatchProvider = ({ children }) => {
 
   const searchBooks = async (query) => {
     try {
-      const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${API_KEY}`
-      );
+      const searchResults = await fetch(`${baseUrl}/books/search`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(query),
+      });
 
-      const { items } = await res.json();
-
-      return items;
+      return searchResults;
     } catch (error) {
       console.error(error);
     }

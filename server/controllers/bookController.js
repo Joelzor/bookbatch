@@ -41,8 +41,14 @@ const searchBooks = async (req, res, next) => {
   );
 
   const curatedBooks = data.data.items.map((book) => {
-    const { title, authors, imageLinks, publishedDate, pageCount } =
-      book.volumeInfo;
+    const {
+      title,
+      authors,
+      imageLinks,
+      publishedDate,
+      pageCount,
+      description,
+    } = book.volumeInfo;
     const yearPublished = new Date(publishedDate).getFullYear();
     const { id } = book;
     return {
@@ -52,10 +58,9 @@ const searchBooks = async (req, res, next) => {
       googleId: id,
       yearPublished: yearPublished.toString() || null,
       pageCount: pageCount || null,
+      description: description || null,
     };
   });
-
-  // console.log(curatedBooks);
 
   res.status(200).json(curatedBooks);
 };
