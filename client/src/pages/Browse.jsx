@@ -100,7 +100,7 @@ const Browse = () => {
   return (
     <Container className="p-4">
       <Row>
-        <Col xs={9}>
+        <Col xs={12} xxl={9}>
           <Form className="mt-4 search-form" onSubmit={handleSubmit}>
             <Form.Control
               type="search"
