@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Stack } from "react-bootstrap";
 import PublishedBatch from "../components/PublishedBatch";
 import { useBatchContext } from "../context/batch";
+import tagOptions from "../data/tag-options";
 
 import "../styles/browse.css";
 
@@ -11,6 +12,9 @@ const Browse = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [batches, setBatches] = useState([]);
   const [results, setResults] = useState(null);
+  const [resultsCopy, setResultsCopy] = useState(null);
+  const [tagFilters, setTagFilters] = useState([]);
+  const [checking, setChecking] = useState(false);
   // const searchParams = useSearchParams()[0];
 
   useEffect(() => {
@@ -47,7 +51,49 @@ const Browse = () => {
     const uniqueResults = [...new Set(results)];
 
     setResults(uniqueResults);
+    setResultsCopy(uniqueResults);
   };
+
+  const handleChange = (e) => {
+    setChecking(!checking);
+    const value = e.target.value;
+    const checked = e.target.checked;
+
+    if (checked === true) {
+      setTagFilters([...tagFilters, value]);
+    }
+
+    if (checked === false) {
+      setTagFilters((prevFilters) => {
+        return prevFilters.filter((tag) => tag !== value);
+      });
+    }
+
+    if (!results) return;
+
+    filterResults();
+  };
+
+  const filterResults = useCallback(() => {
+    if (!results) return;
+
+    if (tagFilters.length === 0) {
+      setResults(resultsCopy);
+      return;
+    }
+
+    const filteredResults = results.filter((batch) => {
+      return tagFilters.every((tag) => {
+        return batch.tags.map((batchTag) => batchTag.title).includes(tag);
+      });
+    });
+
+    setResults(filteredResults);
+  }, [results, resultsCopy, tagFilters]);
+
+  useEffect(() => {
+    filterResults();
+  }, [checking]);
 
   return (
     <Container className="p-4">
@@ -83,23 +129,20 @@ const Browse = () => {
         </Col>
         <Col>
           <Stack className="tag-container">
-            <h4 className="tag-title">Tags</h4>
+            <h4 className="tag-title">Default Tags</h4>
             <ul className="tag-list">
-              <li>
-                <Form.Check type="checkbox" label="crime" />
-              </li>
-              <li>
-                <Form.Check type="checkbox" label="fantasy" />
-              </li>
-              <li>
-                <Form.Check type="checkbox" label="sci-fi" />
-              </li>
-              <li>
-                <Form.Check type="checkbox" label="history" />
-              </li>
-              <li>
-                <Form.Check type="checkbox" label="philosophy" />
-              </li>
+              {tagOptions.map((tag, index) => {
+                return (
+                  <li key={index}>
+                    <Form.Check
+                      type="checkbox"
+                      value={tag.title}
+                      label={tag.title}
+                      onChange={handleChange}
+                    />
+                  </li>
+                );
+              })}
             </ul>
           </Stack>
         </Col>
