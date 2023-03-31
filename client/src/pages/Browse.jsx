@@ -77,11 +77,13 @@ const Browse = () => {
   const filterResults = useCallback(() => {
     if (!results) return;
 
+    // setting results back to the original search
     if (tagFilters.length === 0) {
       setResults(resultsCopy);
       return;
     }
 
+    // checking if every selected tag in the filters matches the batch tags
     const filteredResults = results.filter((batch) => {
       return tagFilters.every((tag) => {
         return batch.tags.map((batchTag) => batchTag.title).includes(tag);

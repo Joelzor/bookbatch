@@ -26,3 +26,9 @@
   list-style: none;
   padding: 0;
 }
+
+@media screen and (max-width: 770px) {
+  .tag-container {
+    margin-top: 16px;
+  }
+}
