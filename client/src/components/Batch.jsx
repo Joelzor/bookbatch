@@ -66,7 +66,7 @@ const Batch = ({ handleShow }) => {
           <Modal.Title>Add new title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={(e) => e.preventDefault()}>
             <Form.Group>
               <Form.Control
                 required
